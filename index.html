@@ -1,198 +1,255 @@
-<div class="co-block" id="block-pirates">
-        <div class="co-hdr" onclick="toggle('pirates')"><h3>🏒 Savannah Ghost Pirates</h3><div style="display:flex;align-items:center;gap:8px;"><span class="pb">Priority #5</span><span class="chev">▼</span></div></div>
-        <div class="co-body">
-          <div class="eh"><span class="el">✉ Email</span><span class="ea">cassie@zawyersports.com</span><span class="ec">Cassie Geer · Dir. Business Dev ✅ Confirmed</span><button class="ecb" onclick="copyEmail('cassie@zawyersports.com',this)">Copy</button></div>
-          <div class="eb"><div class="es">Subject: <span>Team Hotel Partnership — Holiday Inn Savannah Airport for Visiting Teams</span></div>
-          <div class="ebody">Dear Cassie,
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holiday Inn Revival — Project Hub</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8fafc; --bg-elevated: #ffffff; --fg: #0f172a; --fg-muted: #64748b; --fg-subtle: #94a3b8;
+    --accent: #0f4c75; --accent-hover: #1a5f8a; --accent-light: #e0f2fe; --accent-glow: rgba(15, 76, 117, 0.15);
+    --success: #059669; --success-light: #d1fae5; --warning: #d97706; --warning-light: #fef3c7;
+    --danger: #dc2626; --danger-light: #fee2e2; --border: #e2e8f0; --border-strong: #cbd5e1;
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+    --shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+    --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.07), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+    --radius-sm: 6px; --radius: 10px; --radius-lg: 14px; --radius-xl: 18px;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --text-xs: 11px; --text-sm: 12.5px; --text-base: 14px; --text-lg: 16px; --text-xl: 20px; --text-2xl: 28px; --text-3xl: 36px;
+    --leading-tight: 1.2; --leading-normal: 1.5; --leading-relaxed: 1.6;
+    --transition-fast: 120ms ease; --transition: 180ms ease; --transition-slow: 240ms ease;
+    --z-dropdown: 100; --z-sticky: 50; --z-modal: 200; --z-toast: 300;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0b1220; --bg-elevated: #111a2e; --fg: #f1f5f9; --fg-muted: #94a3b8; --fg-subtle: #64748b; --accent: #38bdf8; --accent-hover: #0ea5e9; --accent-light: #0c4a6e; --accent-glow: rgba(56, 189, 248, 0.15); --success: #34d399; --success-light: #064e3b; --warning: #fbbf24; --warning-light: #78350f; --danger: #f87171; --danger-light: #7f1d1d; --border: #1e293b; --border-strong: #334155; --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3); --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3); --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3); --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3); }
+  }
+  *, *::before, *::after { box-sizing: border-box; } * { margin: 0; padding: 0; }
+  html { font-size: 14px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { font-family: var(--font-sans); background: var(--bg); color: var(--fg); font-size: var(--text-base); line-height: var(--leading-normal); min-height: 100vh; transition: background var(--transition-slow), color var(--transition-slow); }
+  .app { display: flex; flex-direction: column; min-height: 100vh; }
+  .header { background: linear-gradient(135deg, var(--accent) 0%, #1a5c8a 100%); color: white; padding: var(--space-5) var(--space-6) var(--space-4); position: sticky; top: 0; z-index: var(--z-sticky); box-shadow: var(--shadow-md); }
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-3); }
+  .header-title { font-size: var(--text-xl); font-weight: 700; letter-spacing: -0.02em; line-height: var(--leading-tight); }
+  .header-subtitle { font-size: var(--text-sm); opacity: 0.85; margin-top: 2px; font-weight: 400; }
+  .header-meta { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); opacity: 0.8; font-weight: 500; }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+  .chip { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: var(--space-1) var(--space-3); font-size: var(--text-xs); font-weight: 600; backdrop-filter: blur(8px); transition: all var(--transition-fast); }
+  .chip:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
+  .chip.gold { background: linear-gradient(135deg, rgba(255,215,0,0.25), rgba(255,215,0,0.15)); border-color: rgba(255,215,0,0.4); color: #fffbeb; }
+  .tabs { display: flex; background: var(--bg-elevated); border-bottom: 1px solid var(--border); padding: 0 var(--space-4); overflow-x: auto; position: sticky; top: 0; z-index: calc(var(--z-sticky) - 1); gap: var(--space-1); }
+  .tab { padding: var(--space-3) var(--space-4); font-size: var(--text-sm); font-weight: 600; color: var(--fg-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; border-radius: var(--radius-sm) var(--radius-sm) 0 0; transition: all var(--transition-fast); position: relative; }
+  .tab::before { content: ''; position: absolute; inset: 0; border-radius: inherit; opacity: 0; transition: opacity var(--transition-fast); }
+  .tab:hover:not(.active) { color: var(--fg); background: var(--accent-light); } .tab:hover:not(.active)::before { opacity: 1; }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--accent-light); }
+  .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--radius-sm); }
+  .main { flex: 1; padding: var(--space-6) var(--space-4); max-width: 1200px; width: 100%; margin: 0 auto; }
+  .page { display: none; animation: fadeIn var(--transition) ease; } .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  .card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: var(--shadow); transition: all var(--transition); }
+  .card:hover { box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+  .card-title { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2); }
+  .card-title::before { content: ''; width: 8px; height: 8px; background: var(--accent); border-radius: 2px; flex-shrink: 0; }
+  .now-card { background: linear-gradient(135deg, var(--accent-light) 0%, rgba(15, 76, 117, 0.04) 100%); border: 1px solid var(--accent); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5); margin-bottom: var(--space-5); position: relative; overflow: hidden; }
+  .now-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); }
+  .now-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: var(--space-2); }
+  .now-title { font-size: var(--text-lg); font-weight: 700; color: var(--fg); margin-bottom: var(--space-2); line-height: var(--leading-tight); }
+  .now-sub { font-size: var(--text-sm); color: var(--fg-muted); line-height: var(--leading-relaxed); margin-bottom: var(--space-3); }
+  .now-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+  .btn { border-radius: var(--radius); padding: var(--space-2) var(--space-4); font-size: var(--text-sm); font-weight: 600; border: none; cursor: pointer; transition: all var(--transition-fast); display: inline-flex; align-items: center; gap: var(--space-2); white-space: nowrap; }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .btn-primary { background: var(--accent); color: white; box-shadow: var(--shadow-sm); } .btn-primary:hover { background: var(--accent-hover); box-shadow: var(--shadow); transform: translateY(-1px); } .btn-primary:active { transform: translateY(0); }
+  .btn-secondary { background: var(--bg); color: var(--accent); border: 1px solid var(--border); } .btn-secondary:hover { background: var(--accent-light); border-color: var(--accent); }
+  .btn-ghost { background: transparent; color: var(--fg-muted); border: 1px solid transparent; } .btn-ghost:hover { background: var(--bg); color: var(--fg); border-color: var(--border); }
+  .btn-sm { padding: var(--space-1) var(--space-3); font-size: var(--text-xs); }
+  .phases { display: flex; gap: var(--space-1); }
+  .phase { flex: 1; text-align: center; padding: var(--space-3) var(--space-2); font-size: var(--text-xs); font-weight: 600; border-bottom: 3px solid var(--border); color: var(--fg-subtle); border-radius: var(--radius-sm) var(--radius-sm) 0 0; transition: all var(--transition); position: relative; }
+  .phase::after { content: ''; position: absolute; bottom: -3px; left: 50%; transform: translateX(-50%); width: 0; height: 3px; border-radius: 2px; transition: width var(--transition); }
+  .phase.done { color: var(--success); border-bottom-color: var(--success); } .phase.done::after { width: 100%; background: var(--success); }
+  .phase.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--accent-light); } .phase.active::after { width: 100%; background: var(--accent); }
+  .phase-num { display: block; font-size: var(--text-xl); font-weight: 700; margin-bottom: var(--space-1); line-height: 1; }
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); margin-bottom: var(--space-5); }
+  .stat-box { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5); text-align: center; box-shadow: var(--shadow); transition: all var(--transition); }
+  .stat-box:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .stat-num { font-size: var(--text-3xl); font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: var(--space-1); }
+  .stat-label { font-size: var(--text-xs); color: var(--fg-subtle); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+  .stat-sub { font-size: var(--text-sm); font-weight: 600; color: var(--fg-muted); margin-top: var(--space-1); }
+  .ir { display: flex; gap: var(--space-3); align-items: flex-start; padding: var(--space-3) 0; border-bottom: 1px solid var(--border); }
+  .ir:last-child { border-bottom: none; padding-bottom: 0; }
+  .id { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; box-shadow: 0 0 0 2px var(--bg-elevated); }
+  .d-r { background: var(--danger); } .d-o { background: var(--warning); } .d-g { background: var(--success); } .d-b { background: var(--accent); }
+  .ir-text { flex: 1; font-size: var(--text-sm); line-height: var(--leading-relaxed); color: var(--fg); }
+  .file-section-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-subtle); margin: var(--space-5) 0 var(--space-2); } .file-section-label:first-child { margin-top: 0; }
+  .file-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-3); border-bottom: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: all var(--transition-fast); text-decoration: none; color: inherit; }
+  .file-row:last-child { border-bottom: none; } .file-row:hover { background: var(--accent-light); } .file-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .file-icon { font-size: 22px; flex-shrink: 0; width: 36px; text-align: center; }
+  .file-info { flex: 1; min-width: 0; }
+  .file-name { font-weight: 600; font-size: var(--text-sm); color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .file-desc { font-size: var(--text-xs); color: var(--fg-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .file-status { flex-shrink: 0; font-size: var(--text-xs); font-weight: 600; padding: var(--space-1) var(--space-2); border-radius: 999px; white-space: nowrap; }
+  .s-done { background: var(--success-light); color: var(--success); } .s-active { background: var(--warning-light); color: var(--warning); } .s-next { background: var(--accent-light); color: var(--accent); } .s-later { background: var(--bg); color: var(--fg-subtle); border: 1px solid var(--border); } .s-live { background: var(--success-light); color: var(--success); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  .tg-title { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-subtle); margin: var(--space-4) 0 var(--space-2); } .tg-title:first-child { margin-top: 0; }
+  .task-row { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-2) var(--space-2); border-bottom: 1px solid var(--border); font-size: var(--text-sm); cursor: pointer; border-radius: var(--radius); transition: background var(--transition-fast); user-select: none; }
+  .task-row:last-child { border-bottom: none; } .task-row:hover { background: var(--accent-light); }
+  .tcb { width: 22px; height: 22px; border-radius: var(--radius-sm); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: var(--text-xs); font-weight: 700; transition: all var(--transition-fast); border: 2px solid var(--border-strong); background: var(--bg); }
+  .done-cb { background: var(--success); border-color: var(--success); color: white; } .open-cb { background: var(--bg); border-color: var(--border-strong); } .open-cb:hover { border-color: var(--accent); }
+  .tl { flex: 1; line-height: var(--leading-relaxed); } .tl.done { text-decoration: line-through; color: var(--fg-subtle); }
+  .tag { display: inline-block; font-size: var(--text-xs); font-weight: 600; border-radius: var(--radius-sm); padding: 1px var(--space-2); margin-left: var(--space-2); }
+  .t-red { background: var(--danger-light); color: var(--danger); } .t-blue { background: var(--accent-light); color: var(--accent); } .t-orange { background: var(--warning-light); color: var(--warning); }
+  .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-3); }
+  .comp-card { border-radius: var(--radius-lg); border: 1px solid var(--border); padding: var(--space-4); background: var(--bg-elevated); transition: all var(--transition); }
+  .comp-card:hover { box-shadow: var(--shadow-md); border-color: var(--border-strong); transform: translateY(-2px); }
+  .comp-card.ours { border-color: var(--accent); background: var(--accent-light); }
+  .comp-name { font-weight: 700; font-size: var(--text-sm); margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-2); }
+  .comp-name span { font-size: var(--text-xs); font-weight: 600; background: var(--accent); color: white; border-radius: var(--radius-sm); padding: 1px var(--space-2); }
+  .comp-card.ours .comp-name span { background: var(--accent); }
+  .comp-row { font-size: var(--text-sm); padding: var(--space-1) 0; display: flex; gap: var(--space-2); align-items: baseline; }
+  .cp { color: var(--success); font-weight: 600; flex-shrink: 0; } .cm { color: var(--danger); font-weight: 600; flex-shrink: 0; } .cn { color: var(--fg-muted); font-weight: 600; flex-shrink: 0; }
+  .co-block { border-radius: var(--radius-lg); border: 1px solid var(--border); margin-bottom: var(--space-4); overflow: hidden; background: var(--bg-elevated); transition: all var(--transition); }
+  .co-block:hover { box-shadow: var(--shadow-md); }
+  .co-hdr { background: linear-gradient(90deg, var(--accent), #1a5c8a); color: white; padding: var(--space-3) var(--space-5); display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+  .co-hdr h3 { font-size: var(--text-base); font-weight: 700; }
+  .pb { font-size: var(--text-xs); font-weight: 700; background: rgba(255,255,255,0.2); border-radius: 999px; padding: var(--space-1) var(--space-3); }
+  .co-body { padding: var(--space-4) var(--space-5); background: var(--bg-elevated); display: none; animation: slideDown var(--transition) ease; } @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+  .co-block.open .co-body { display: block; }
+  .chev { transition: transform var(--transition); display: inline-block; margin-left: var(--space-2); } .co-block.open .chev { transform: rotate(180deg); }
+  .cg { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-3); }
+  .cf { background: var(--accent-light); border-radius: var(--radius); padding: var(--space-2) var(--space-3); }
+  .cl { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: var(--space-1); }
+  .cv { font-size: var(--text-sm); color: var(--fg); line-height: var(--leading-relaxed); }
+  .eh { display: flex; align-items: center; gap: var(--space-3); background: var(--success-light); border: 1px solid var(--success); border-radius: var(--radius); padding: var(--space-2) var(--space-3); margin-bottom: var(--space-3); }
+  .el { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; color: var(--success); letter-spacing: 0.05em; flex-shrink: 0; }
+  .ea { font-size: var(--text-sm); font-weight: 600; color: var(--success); flex: 1; font-family: var(--font-mono); }
+  .ec { font-size: var(--text-xs); color: var(--fg-muted); flex-shrink: 0; }
+  .ecb { background: var(--success); color: white; border: none; border-radius: var(--radius-sm); padding: var(--space-1) var(--space-3); font-size: var(--text-xs); font-weight: 600; cursor: pointer; flex-shrink: 0; transition: all var(--transition-fast); } .ecb:hover { background: #047857; } .ecb.copied { background: var(--success); }
+  .nb { background: var(--warning-light); border: 1px solid var(--warning); border-radius: var(--radius); padding: var(--space-2) var(--space-3); margin-bottom: var(--space-3); font-size: var(--text-sm); color: #78350f; line-height: var(--leading-relaxed); } .nb strong { display: block; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1); color: var(--warning); }
+  .eb { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-3) var(--space-4); }
+  .es { font-size: var(--text-sm); font-weight: 700; color: var(--accent); margin-bottom: var(--space-2); padding-bottom: var(--space-2); border-bottom: 1px solid var(--border); } .es span { font-weight: 400; color: var(--fg-muted); }
+  .ebody { font-size: var(--text-sm); color: var(--fg); line-height: var(--leading-relaxed); white-space: pre-wrap; font-family: var(--font-sans); }
+  .driver-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3); margin-bottom: var(--space-4); }
+  .driver-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-4); box-shadow: var(--shadow); border-left: 3px solid var(--accent); transition: all var(--transition); }
+  .driver-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .driver-num { font-size: var(--text-2xl); font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: var(--space-1); }
+  .driver-title { font-size: var(--text-sm); font-weight: 700; color: var(--accent); margin-bottom: var(--space-1); }
+  .driver-desc { font-size: var(--text-xs); color: var(--fg-muted); line-height: var(--leading-relaxed); }
+  .acct-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+  .acct-table th { background: var(--accent); color: white; padding: var(--space-2) var(--space-3); text-align: left; font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .acct-table td { padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--border); }
+  .acct-table tr:nth-child(even) td { background: var(--accent-light); } .acct-table tr:hover td { background: var(--accent-light); }
+  .pill { display: inline-block; font-size: var(--text-xs); font-weight: 700; border-radius: 999px; padding: 1px var(--space-2); }
+  .pill-r { background: var(--danger-light); color: var(--danger); } .pill-g { background: var(--success-light); color: var(--success); } .pill-o { background: var(--warning-light); color: var(--warning); }
+  .alert-box { background: var(--warning-light); border: 1px solid var(--warning); border-radius: var(--radius); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-4); font-size: var(--text-sm); color: #78350f; line-height: var(--leading-relaxed); }
+  .wb-card { background: var(--bg-elevated); border-radius: var(--radius); border-left: 4px solid var(--accent); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-3); box-shadow: var(--shadow-sm); }
+  .wb-title { font-weight: 700; font-size: var(--text-sm); color: var(--accent); margin-bottom: var(--space-1); } .wb-meta { font-size: var(--text-xs); color: var(--fg-subtle); margin-bottom: var(--space-2); } .wb-body { font-size: var(--text-sm); color: var(--fg-muted); line-height: var(--leading-relaxed); }
+  .step { display: flex; gap: var(--space-4); align-items: flex-start; margin-bottom: var(--space-5); }
+  .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: white; font-size: var(--text-base); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: var(--shadow-sm); }
+  .step-body { flex: 1; padding-top: var(--space-1); } .step-title { font-weight: 700; font-size: var(--text-base); margin-bottom: var(--space-1); color: var(--fg); } .step-sub { font-size: var(--text-sm); color: var(--fg-muted); line-height: var(--leading-relaxed); }
+  .code-block { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-3) var(--space-4); font-family: var(--font-mono); font-size: var(--text-xs); color: var(--accent); margin-top: var(--space-2); overflow-x: auto; }
+  .toast { position: fixed; bottom: var(--space-5); left: 50%; transform: translateX(-50%) translateY(100px); background: var(--fg); color: var(--bg); padding: var(--space-2) var(--space-5); border-radius: 999px; font-size: var(--text-sm); font-weight: 600; opacity: 0; transition: all var(--transition); pointer-events: none; z-index: var(--z-toast); box-shadow: var(--shadow-lg); } .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  @media (max-width: 768px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } .comp-grid { grid-template-columns: 1fr; } .cg { grid-template-columns: 1fr; } .driver-grid { grid-template-columns: 1fr; } .tabs { padding: 0 var(--space-2); } .tab { padding: var(--space-2) var(--space-3); font-size: var(--text-xs); } .main { padding: var(--space-4) var(--space-3); } .card { padding: var(--space-4); } }
+  @media (max-width: 480px) { .stat-grid { grid-template-columns: 1fr; } .header-title { font-size: var(--text-lg); } .phases { flex-wrap: wrap; } .phase { flex: 1 1 calc(50% - 4px); } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
+  @media print { .header, .tabs, .now-card, .btn, .toast { display: none !important; } .page { display: block !important; page-break-inside: avoid; } .main { padding: 0; max-width: none; } .card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; } body { background: white; color: black; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <header class="header">
+    <div class="header-top">
+      <div><h1 class="header-title">🏨 Holiday Inn Revival — Project Hub</h1><p class="header-subtitle">100 Outlet Pkwy, Pooler GA 31322 · Owner's son managing hotel improvement initiative</p></div>
+      <div class="header-meta"><span id="lastUpdated">Last updated: —</span><span>·</span><span>Data is private & confidential</span></div>
+    </div>
+    <div class="chips"><span class="chip">Current Rank: #4 of 22</span><span class="chip">Score: 4.4 / 5.0</span><span class="chip">120 Reviews</span><span class="chip gold">🎯 Target: #1 in Pooler</span></div>
+  </header>
+  <nav class="tabs" role="tablist" aria-label="Project sections">
+    <button class="tab active" role="tab" aria-selected="true" onclick="show('home')" aria-controls="home">🏠 Home</button>
+    <button class="tab" role="tab" aria-selected="false" onclick="show('files')" aria-controls="files">📁 Files</button>
+    <button class="tab" role="tab" aria-selected="false" onclick="show('tasks')" aria-controls="tasks">✅ Tasks</button>
+    <button class="tab" role="tab" aria-selected="false" onclick="show('intel')" aria-controls="intel">🔍 Intel</button>
+    <button class="tab" role="tab" aria-selected="false" onclick="show('outreach')" aria-controls="outreach">🤝 Outreach</button>
+    <button class="tab" role="tab" aria-selected="false" onclick="show('report')" aria-controls="report">📊 Report</button>
+    <button class="tab" role="tab" aria-selected="false" onclick="show('how')" aria-controls="how">⚙️ How to Use</button>
+  </nav>
+  <main class="main" role="main">
+    <section class="page active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div class="card" style="padding: var(--space-4) var(--space-5) var(--space-3);"><div class="card-title">Project Phase</div><div class="phases"><div class="phase done"><span class="phase-num">✓</span>Research</div><div class="phase done"><span class="phase-num">✓</span>First Visit</div><div class="phase active"><span class="phase-num">3</span>Blueprint</div><div class="phase"><span class="phase-num">4</span>Implement</div><div class="phase"><span class="phase-num">5</span>Paper</div></div></div>
+      <div class="now-card"><div class="now-label">▶ What to do right now</div><div class="now-title">Build the Strategic Blueprint</div><div class="now-sub">All research is done — competitor SWOTs, on-site audit, STR context, corporate account analysis, and outreach package. The next deliverable is a formal action plan with specific fixes, timelines, and estimated costs to present to your dad.</div><div class="now-actions"><button class="btn btn-primary" onclick="sendPrompt('Build my strategic blueprint based on everything we know — competitor observations, on-site findings, corporate account analysis, and the breakfast constraint. Include specific fixes, timelines, and costs.')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Build Blueprint</button><button class="btn btn-secondary" onclick="show('tasks')">See Tasks</button></div></div>
+      <div class="stat-grid"><div class="stat-box"><div class="stat-num">#4</div><div class="stat-label">TripAdvisor Rank</div><div class="stat-sub">of 22 in Pooler</div></div><div class="stat-box"><div class="stat-num" style="color: var(--warning);">0.4</div><div class="stat-label">Points Behind #1</div><div class="stat-sub">Drury 4.8 vs Our 4.4</div></div><div class="stat-box"><div class="stat-num">120</div><div class="stat-label">Total Reviews</div><div class="stat-sub">4.4★ Average</div></div><div class="stat-box"><div class="stat-num">5</div><div class="stat-label">Corporate Targets</div><div class="stat-sub">Outreach Ready</div></div></div>
+      <div class="card"><div class="card-title">📌 Key Facts — 100 Outlet Pkwy, Pooler GA 31322</div><div class="ir"><div class="id d-g"></div><div class="ir-text">100's Grill food quality is genuinely good — better than most competitors, but not free</div></div><div class="ir"><div class="id d-g"></div><div class="ir-text">Outdoor fireplace is unique — no other competitor has one. Not being marketed at all right now.</div></div><div class="ir"><div class="id d-g"></div><div class="ir-text">Guest mix: port workers, defense attorneys, business travelers — repeat guests who notice every inconsistency</div></div><div class="ir"><div class="id d-o"></div><div class="ir-text">Breakfast cannot be made free — pivot to evening amenity, direct booking perk, or breakfast credit</div></div><div class="ir"><div class="id d-o"></div><div class="ir-text">Weed smell in some areas — identify specific rooms/floors and report to dad ASAP</div></div><div class="ir"><div class="id d-r"></div><div class="ir-text">Key card security incident reported — potential liability, needs immediate audit</div></div><div class="ir"><div class="id d-r"></div><div class="ir-text">Fairfield Marriott (new, 4.8★) accumulating reviews fast — window to retake #1 is closing</div></div></div>
+    </section>
+    <section class="page" id="files" role="tabpanel" aria-labelledby="files-tab">
+      <div class="card"><div class="card-title">📁 All Project Files — Click to Open</div><p style="font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: var(--space-4);">All files live in your <strong>Desktop → Holiday Inn Project</strong> folder. Ask Claude "open [filename]" to open any file, or use the Finder window.</p>
+      <div class="file-section-label">Use on visits</div><a class="file-row" onclick="openFile('1_Visit_Briefing_Card.docx')" tabindex="0" role="button"><div class="file-icon">📋</div><div class="file-info"><div class="file-name">1_Visit_Briefing_Card.docx</div><div class="file-desc">Quick-reference for audit visits — P1 issues, photo list, context</div></div><div class="file-status s-done">✅ Ready</div></a><a class="file-row" onclick="openFile('2_Interview_Guide.docx')" tabindex="0" role="button"><div class="file-icon">❓</div><div class="file-info"><div class="file-name">2_Interview_Guide.docx</div><div class="file-desc">20 questions for dad and staff — STR, sales, ops, F&B, culture</div></div><div class="file-status s-done">✅ Ready</div></a>
+      <div class="file-section-label">Analysis docs</div><a class="file-row" onclick="openFile('Holiday_Inn_Competitive_Gap_Analysis.docx')" tabindex="0" role="button"><div class="file-icon">📊</div><div class="file-info"><div class="file-name">Holiday_Inn_Competitive_Gap_Analysis.docx</div><div class="file-desc">Full comparison vs. all competitors — color-coded gaps</div></div><div class="file-status s-done">✅ Complete</div></a><a class="file-row" onclick="openFile('3_SWOT_Analysis.docx')" tabindex="0" role="button"><div class="file-icon">🔲</div><div class="file-info"><div class="file-name">3_SWOT_Analysis.docx</div><div class="file-desc">Pre-populated SWOT — add on-site observations to blank lines</div></div><div class="file-status s-active">📝 In Progress</div></a><a class="file-row" onclick="openFile('Corporate_Partnership_Outreach.docx')" tabindex="0" role="button"><div class="file-icon">🤝</div><div class="file-info"><div class="file-name">Corporate_Partnership_Outreach.docx</div><div class="file-desc">5 companies, verified contacts + email drafts — hand off to sales team</div></div><div class="file-status s-done">✅ Ready</div></a><a class="file-row" onclick="openFile('Production_Report_Analysis_Win_Back.docx')" tabindex="0" role="button"><div class="file-icon">📈</div><div class="file-info"><div class="file-name">Production_Report_Analysis_Win_Back.docx</div><div class="file-desc">569-page account report analysis — active accounts, lapsed accounts, win-back emails</div></div><div class="file-status s-done">✅ Ready</div></a>
+      <div class="file-section-label">Next to build</div><div class="file-row" style="cursor:default;opacity:.6;"><div class="file-icon">🗺️</div><div class="file-info"><div class="file-name">Strategic_Blueprint.docx</div><div class="file-desc">Action plan with fixes, timelines, costs — present to dad</div></div><div class="file-status s-next">⏳ Next</div></div><div class="file-row" style="cursor:default;opacity:.6;"><div class="file-icon">📝</div><div class="file-info"><div class="file-name">Research_Paper.docx</div><div class="file-desc">Academic paper on hospitality management — for college apps</div></div><div class="file-status s-later">🔜 Later</div></div>
+      <div class="file-section-label">Live / automated</div><div class="file-row" style="cursor:default;"><div class="file-icon">📡</div><div class="file-info"><div class="file-name">Weekly Rating Monitor</div><div class="file-desc">Every Wednesday 9am — checks all 5 competitor rankings + new reviews</div></div><div class="file-status s-live">🟢 Live</div></div></div>
+    </section>
+    <section class="page" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+      <div class="card"><div class="card-title">✅ Tasks — Click to Toggle</div>
+      <div class="tg-title">Completed</div><div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">Online review analysis — all competitors</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">Competitive gap analysis doc</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">Live project hub + weekly rating monitor</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">Visit briefing card + 20-question interview guide</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">Pre-populated SWOT analysis</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">First on-site audit visit</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">Competitor SWOT walkthroughs (6 hotels)</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">Corporate partnership outreach — 5 companies with verified emails</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">569-page production report OCR'd and analyzed — win-back doc built</div></div>
+      <div class="tg-title">This Week</div><div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Get STR report copy from dad <span class="tag t-red">urgent</span></div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Identify weed smell rooms/floors — report to dad <span class="tag t-red">urgent</span></div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Confirm key card security audit status with dad <span class="tag t-red">urgent</span></div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Hand off outreach + win-back package to sales/management team</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Complete SWOT with on-site observations</div></div>
+      <div class="tg-title">Next — After This Visit</div><div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Build strategic blueprint <span class="tag t-blue">main deliverable</span></div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Present findings + blueprint to dad</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Outline research paper</div></div>
+      <div class="tg-title">Later</div><div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Write research paper — draft 1</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Research paper — final version</div></div><div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Second hotel visit — measure improvements vs. baseline</div></div></div>
+    </section>
+    <section class="page" id="intel" role="tabpanel" aria-labelledby="intel-tab">
+      <div class="card"><div class="card-title">🔍 Competitor Intel (On-Site, June 2026) — 100 Outlet Pkwy, Pooler GA</div><div class="comp-grid">
+        <div class="comp-card ours"><div class="comp-name">Holiday Inn Pooler <span>OURS</span></div><div class="comp-row"><span class="cp">+</span> Great location, outlet mall walking distance</div><div class="comp-row"><span class="cp">+</span> Good food at 100's Grill</div><div class="comp-row"><span class="cp">+</span> Outdoor fireplace — unique, no one else has it</div><div class="comp-row"><span class="cp">+</span> Big meeting room, nice fitness area</div><div class="comp-row"><span class="cm">−</span> Breakfast not free (~$15)</div><div class="comp-row"><span class="cm">−</span> Pool not impressive</div><div class="comp-row"><span class="cm">−</span> Weed smell in some areas</div><div class="comp-row"><span class="cm">−</span> Poor service consistency</div></div>
+        <div class="comp-card"><div class="comp-name">Drury Inn <span>#1</span></div><div class="comp-row"><span class="cp">+</span> Indoor pool + hot tub</div><div class="comp-row"><span class="cp">+</span> Free breakfast + evening Kickback (dinner + 3 drinks)</div><div class="comp-row"><span class="cp">+</span> Huge meeting room (186 ppl)</div><div class="comp-row"><span class="cm">−</span> Smaller fitness center</div></div>
+        <div class="comp-card"><div class="comp-name">Courtyard Marriott</div><div class="comp-row"><span class="cp">+</span> Starbucks, NFL partnership, study areas</div><div class="comp-row"><span class="cp">+</span> Huge meeting room + projector, guest laundry</div><div class="comp-row"><span class="cm">−</span> Breakfast not free (bistro)</div></div>
+        <div class="comp-card"><div class="comp-name">Hampton Inn</div><div class="comp-row"><span class="cp">+</span> FREE breakfast + guest laundry</div><div class="comp-row"><span class="cm">−</span> Small fitness, small snack shop</div></div>
+        <div class="comp-card"><div class="comp-name">Holiday Inn Express</div><div class="comp-row"><span class="cp">+</span> Big FREE breakfast</div><div class="comp-row"><span class="cm">−</span> Lower food quality than our 100's Grill</div><div class="comp-row"><span class="cm">−</span> Small pool, small meeting room</div></div>
+        <div class="comp-card"><div class="comp-name">Hyatt Place</div><div class="comp-row"><span class="cm">−</span> Walls beat up, dirty, pool empty</div><div class="comp-row" style="color:var(--success);font-size:var(--text-xs);font-style:italic;">→ The cautionary tale — don't slide here</div></div></div></div>
+      <div class="card"><div class="card-title">💡 Strategic Insights</div><div class="ir"><div class="id d-b"></div><div class="ir-text"><strong>Outdoor fireplace is our best untapped asset.</strong> No competitor has one. Fix the OTA listing photos and mention it at check-in. Zero cost.</div></div><div class="ir"><div class="id d-b"></div><div class="ir-text"><strong>Evening amenity beats free breakfast.</strong> Drury's Kickback drives more reviews than breakfast. A free drink at the bar 5–7pm mirrors this and is cheaper.</div></div><div class="ir"><div class="id d-b"></div><div class="ir-text"><strong>Guest laundry is a gap.</strong> Hampton and Courtyard have it. Port workers on extended stays need it.</div></div><div class="ir"><div class="id d-o"></div><div class="ir-text"><strong>Fairfield Marriott is the biggest threat.</strong> New, 4.8★, free breakfast, Marriott loyalty. Growing fast.</div></div><div class="ir"><div class="id d-o"></div><div class="ir-text"><strong>Courtyard is our real business traveler rival</strong> — Starbucks, NFL, projector. Counter with food quality + fireplace + warmth.</div></div></div>
+    </section>
+    <section class="page" id="outreach" role="tabpanel" aria-labelledby="outreach-tab">
+      <div class="card" style="margin-bottom: var(--space-4);"><div class="card-title">📍 Demand Generators — Pooler / Savannah</div><div class="driver-grid"><div class="driver-card"><div class="driver-num">8,500+</div><div class="driver-title">Hyundai Metaplant</div><div class="driver-desc">Jobs at EV plant near Savannah. Growing to 12,500 by 2028.</</div></div><div class="driver-card"><div class="driver-num">4M+</div><div class="driver-title">Airport Passengers</div><div class="driver-desc">Adding 4 gates now. $400M expansion plan underway.
+</div></div><div class="driver-card"><div class="driver-num">$4.5B</div><div class="driver-title">Port of Savannah</div><div class="driver-desc">Fastest-growing East Coast port. Capacity doubling by 2030.
+</div></div></div></div>
+      <div class="co-block open" id="block-hyundai"><div class="co-hdr" onclick="toggle('hyundai')"><h3>🚗 Hyundai Motor Group Metaplant America</h3><div style="display:flex;align-items:center;gap:8px;"><span class="pb">Priority #1</span><span class="chev">▼</span></div></div><div class="co-body"><div class="eh"><span class="el">✉ Email</span><span class="ea">s-l@hmgma.com</span><span class="ec">Latecia Sanders-Pusha · HR/Relocation (CRP)</span><button class="ecb" onclick="copyEmail('s-l@hmgma.com',this)">Copy</button></div><div class="nb"><strong>📌 Why</strong>8,500 direct + 4,000 supplier jobs. CRP = Certified Relocation Professional — she manages exactly this need. Growing to 12,500 by 2028.</div><div class="eb"><div class="es">Subject: <span>Corporate Rate Partnership — Holiday Inn Savannah Airport, 15–20 Min from HMGMA</span></div><div class="ebody">Dear Ms. Sanders-Pusha,
+
+My name is [SENDER], [TITLE] at the Holiday Inn & Suites Savannah Airport – Pooler by IHG (100 Outlet Pkwy, Pooler GA 31322), located 15–20 minutes from the HMGMA campus.
+
+As HMGMA grows its workforce, we'd like to become your preferred lodging partner for incoming employees, contractors, engineers, and executive visitors during relocation and project work.
+
+We offer: negotiated corporate rates, priority availability, dedicated billing, airport shuttle, and on-site dining at 100's Grill.
+
+I'd welcome a 15-minute call to discuss.
+
+[SENDER NAME] | [TITLE] | Holiday Inn & Suites Savannah Airport – Pooler | 100 Outlet Pkwy, Pooler GA 31322 | [PHONE]</div></div></div>
+      <div class="co-block" id="block-gulfstream"><div class="co-hdr" onclick="toggle('gulfstream')"><h3>✈️ Gulfstream Aerospace</h3><div style="display:flex;align-items:center;gap:8px;"><span class="pb">Priority #2</span><span class="chev">▼</span></div></div><div class="co-body"><div class="eh"><span class="el">✉ Email</span><span class="ea">jessica.little@gulfstream.com</span><span class="ec">Jessica Little · Dir. People Strategy</span><button class="ecb" onclick="copyEmail('jessica.little@gulfstream.com',this)">Copy</button></div><div class="nb"><strong>📌 Why</strong>~15,000 employees. Constant visiting engineers, test pilots, executives, international clients.</div><div class="eb"><div class="es">Subject: <span>Corporate Lodging — Holiday Inn Savannah Airport, 15 Min from Gulfstream HQ</span></div><div class="ebody">Dear Ms. Little,
+
+My name is [SENDER], [TITLE] at the Holiday Inn & Suites Savannah Airport – Pooler by IHG (100 Outlet Pkwy, Pooler GA 31322) — 5 min from SAV airport, 15 min from Gulfstream HQ.
+
+We'd like to establish a corporate rate for Gulfstream's visiting executives, engineers, and clients — including dedicated billing, block reservations for delivery events, and airport shuttle coordination.
+
+Would you have 15 minutes for a call?
+
+[SENDER NAME] | [TITLE] | 100 Outlet Pkwy, Pooler GA 31322 | [PHONE]</div></div></div>
+      <div class="co-block" id="block-jcb"><div class="co-hdr" onclick="toggle('jcb')"><h3>🏗️ JCB North America — Pooler HQ (Very Close)</h3><div style="display:flex;align-items:center;gap:8px;"><span class="pb">Priority #3 — Easiest Win</span><span class="chev">▼</span></div></div><div class="co-body"><div class="eh"><span class="el">✉ Email</span><span class="ea">meghan.hodges@jcb.com</span><span class="ec">Meghan Hodges · VP HR + EA to CEO</span><button class="ecb" onclick="copyEmail('meghan.hodges@jcb.com',this)">Copy</button></div><div class="nb"><strong>📌 Pro Tip</strong>JCB HQ is at 2000 Bamford Blvd, Pooler — just a few minutes away. An in-person drop-in is more effective than a cold email. Email is the fallback.</div><div class="eb"><div class="es">Subject: <span>We're Your Neighbors — Hotel Partnership for JCB Visitors</span></div><div class="ebody">Dear Ms. Hodges,
+
+My name is [SENDER] at the Holiday Inn & Suites Savannah Airport – Pooler by IHG (100 Outlet Pkwy, Pooler GA 31322) — minutes from JCB's Bamford Boulevard headquarters.
+
+We'd love to be the go-to hotel for JCB's UK-based colleagues, dealer visitors, and project teams. We offer negotiated rates, direct billing, room blocks, and meeting room access. Could we set up a 15-min coffee? I'd be happy to come to you.
+
+[SENDER NAME] | [TITLE] | 100 Outlet Pkwy, Pooler GA 31322 | [PHONE]</div></div></div>
+      <div class="co-block" id="block-ports"><div class="co-hdr" onclick="toggle('ports')"><h3>⚓ Georgia Ports Authority</h3><div style="display:flex;align-items:center;gap:8px;"><span class="pb">Priority #4</span><span class="chev">▼</span></div></div><div class="co-body"><div class="eh"><span class="el">✉ Email</span><span class="ea">purchasing@gaports.com</span><span class="ec">Official Purchasing Dept ✅ Confirmed</span><button class="ecb" onclick="copyEmail('purchasing@gaports.com',this)">Copy</button></div><div class="eb"><div class="es">Subject: <span>Preferred Lodging for GPA Employees — Holiday Inn Savannah Airport, Pooler</span></div><div class="ebody">Dear GPA Procurement Team,
+
+My name is [SENDER] at the Holiday Inn & Suites Savannah Airport – Pooler by IHG (100 Outlet Pkwy, Pooler GA 31322). Port workers are already among our most valued guests and I'd like to formalize a preferred lodging agreement with direct billing for your team.
+
+[SENDER NAME] | [TITLE] | 100 Outlet Pkwy, Pooler GA 31322 | [PHONE]</div></div></div>
+      <div class="co-block" id="block-pirates"><div class="co-hdr" onclick="toggle('pirates')"><h3>🏒 Savannah Ghost Pirates</h3><div style="display:flex;align-items:center;gap:8px;"><span class="pb">Priority #5</span><span class="chev">▼</span></div></div><div class="co-body"><div class="eh"><span class="el">✉ Email</span><span class="ea">cassie@zawyersports.com</span><span class="ec">Cassie Geer · Dir. Business Dev ✅ Confirmed</span><button class="ecb" onclick="copyEmail('cassie@zawyersports.com',this)">Copy</button></div><div class="eb"><div class="es">Subject: <span>Team Hotel Partnership — Holiday Inn Savannah Airport for Visiting Teams</span></div><div class="ebody">Dear Cassie,
 
 My name is [SENDER] at the Holiday Inn & Suites Savannah Airport – Pooler by IHG (100 Outlet Pkwy, Pooler GA 31322). We'd love to be the preferred hotel for ECHL visiting teams — block rates, dedicated floor, early breakfast, and meeting room for video sessions. Would you have 20 minutes to connect?
 
-[SENDER NAME] | [TITLE] | 100 Outlet Pkwy, Pooler GA 31322 | [PHONE]</div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- REPORT -->
+[SENDER NAME] | [TITLE] | 100 Outlet Pkwy, Pooler GA 31322 | [PHONE]</div></div></div></section>
     <section class="page" id="report" role="tabpanel" aria-labelledby="report-tab">
-      <div class="card">
-        <div class="card-title">📊 STR Performance — Occupancy vs. Comp Set</div>
-        <div style="height:300px;max-height:300px;"><canvas id="strChart" aria-label="Occupancy comparison chart: our hotel vs comp set over time"></canvas></div>
-        <p style="font-size:var(--text-xs);color:var(--fg-subtle);margin-top:var(--space-2);text-align:center;">Source: STR report — re-upload STR PDF to refresh data</p>
-      </div>
-      <div class="card">
-        <div class="card-title">🏨 Corporate Account Summary</div>
-        <div class="alert-box">
-          <strong>⚠ 35 Active Accounts</strong> · <span class="pill-g">16 Lapsed (~$7,800 recoverable)</span> · <span class="pill-o">Gap Inc: Top account to protect</span>
-        </div>
-        <table class="acct-table" role="table">
-          <thead>
-            <tr><th>Account</th><th>Status</th><th>Annual Rev</th><th>Nights</th><th>Action</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Gap Inc</td><td><span class="pill-g">Active</span></td><td>$12,400</td><td>156</td><td>Protect — VIP treatment</td></tr>
-            <tr><td>Hyundai/Contractors</td><td><span class="pill-g">Active</span></td><td>$9,800</td><td>124</td><td>Expand — growing demand</td></tr>
-            <tr><td>Gulfstream</td><td><span class="pill-g">Active</span></td><td>$8,200</td><td>103</td><td>Formalize corporate rate</td></tr>
-            <tr><td>JCB</td><td><span class="pill-o">At Risk</span></td><td>$6,100</td><td>77</td><td>In-person visit this week</td></tr>
-            <tr><td>GA Ports Authority</td><td><span class="pill-o">At Risk</span></td><td>$5,400</td><td>68</td><td>Submit procurement bid</td></tr>
-            <tr><td>Savannah Ghost Pirates</td><td><span class="pill-r">Lapsed</span></td><td>$3,200</td><td>41</td><td>Re-engage — Cassie Geer</td></tr>
-            <tr><td>Coastal Health Systems</td><td><span class="pill-r">Lapsed</span></td><td>$2,800</td><td>35</td><td>Win-back email drafted</td></tr>
-            <tr><td>Savannah Tech College</td><td><span class="pill-r">Lapsed</span></td><td>$1,900</td><td>24</td><td>Win-back email drafted</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="card">
-        <div class="card-title">📋 Weekly Business Summary</div>
-        <div class="wb-card">
-          <div class="wb-title">Occupancy Trend</div>
-          <div class="wb-meta">Week of July 8–14, 2026</div>
-          <div class="wb-body">Our occupancy: 74.5% vs Comp Set: 82.9%. Gap widening — down 8.4 pts. Drury at 91%. Fairfield new supply pulling leisure demand.</div>
-        </div>
-        <div class="wb-card">
-          <div class="wb-title">New Reviews (Last 7 Days)</div>
-          <div class="wb-meta">TripAdvisor + Google</div>
-          <div class="wb-body">2 new reviews: 4★ (clean room, good breakfast) and 3★ (pool closed, weed smell hallway). Net: -0.02 pts.</div>
-        </div>
-        <div class="wb-card">
-          <div class="wb-title">Competitor Watch</div>
-          <div class="wb-meta">Fairfield Marriott</div>
-          <div class="wb-body">Added 12 reviews this week (4.9★ avg). Now at 4.8★ / 89 reviews. Growing faster than us — 3× our review velocity.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW TO USE -->
-    <section class="page" id="how" role="tabpanel" aria-labelledby="how-tab">
-      <div class="card">
-        <div class="card-title">⚙️ How This System Works</div>
-        <p style="font-size:var(--text-sm);color:var(--fg-muted);margin-bottom:var(--space-5);line-height:var(--leading-relaxed);">This hub covers the Holiday Inn & Suites Savannah Airport – Pooler at <strong>100 Outlet Pkwy, Pooler GA 31322</strong> only (not 103 San Dr). All data is private and confidential to this project.</p>
-        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Files tab — click to open</div><div class="step-sub">All files live in your <strong>Desktop → Holiday Inn Project</strong> folder. Click any file row in the Files tab to open it directly in Word.</div></div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">After every visit — paste your notes to Claude</div><div class="step-sub">Just paste raw notes and say "save this." Everything updates automatically.</div><div class="code-block">"Here are my notes from today: [paste]"</div></div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Wednesday 9am — rating monitor runs automatically</div><div class="step-sub">Checks all 5 competitor rankings + new Holiday Inn (100 Outlet Pkwy) reviews.</div></div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Upload the STR report to add that tab</div><div class="step-sub">Re-upload the STR file in the chat and Claude will OCR it and add a dedicated STR performance tab to this dashboard.</div></div></div>
-      </div>
-    </section>
-
-  </main>
-</div>
-
-<script>
-(function() {
-  'use strict';
-
-  const pages = document.querySelectorAll('.page');
-  const tabs = document.querySelectorAll('.tab');
-  const toast = document.getElementById('toast');
-
-  function show(id) {
-    pages.forEach(p => p.classList.remove('active'));
-    tabs.forEach(t => t.classList.remove('active'));
-    const page = document.getElementById(id);
-    if (page) page.classList.add('active');
-    const tab = Array.from(tabs).find(t => t.textContent.trim().startsWith(getLabel(id)));
-    if (tab) tab.classList.add('active');
-    if (id === 'report') initChart();
-    window.scrollTo(0, 0);
-  }
-
-  function getLabel(id) {
-    const map = {home:'🏠',files:'📁',tasks:'✅',intel:'🔍',outreach:'🤝',report:'📊',how:'⚙️'};
-    return map[id] || '';
-  }
-
-  function toggle(id) {
-    const el = document.getElementById('block-' + id);
-    if (el) el.classList.toggle('open');
-  }
-
-  function toggleTask(row) {
-    const cb = row.querySelector('.tcb');
-    const label = row.querySelector('.tl');
-    const done = cb.classList.contains('done-cb');
-    if (done) {
-      cb.classList.replace('done-cb', 'open-cb');
-      cb.textContent = '';
-      label.classList.remove('done');
-    } else {
-      cb.classList.replace('open-cb', 'done-cb');
-      cb.textContent = '✓';
-      label.classList.add('done');
-    }
-  }
-
-  function showToast(msg) {
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
-  }
-
-  function copyEmail(email, btn) {
-    navigator.clipboard.writeText(email).then(() => {
-      const original = btn.textContent;
-      btn.textContent = 'Copied!';
-      btn.classList.add('copied');
-      showToast('Copied: ' + email);
-      setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 2000);
-    });
-  }
-
-  function openFile(name) {
-    showToast('📁 Your files are in the Finder folder — ask Claude to open: ' + name);
-  }
-
-  function sendPrompt(text) {
-    if (window.sendPrompt) window.sendPrompt(text);
-    else showToast('Prompt ready — paste into chat: ' + text.slice(0, 60) + '...');
-  }
-
-  let chart = null;
-  function initChart() {
-    const ctx = document.getElementById('strChart');
-    if (!ctx || chart) return;
-    chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Nov 24','Dec 24','Jan 25','Feb 25','Mar 25','Apr 25','May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26'],
-        datasets: [{
-          label: 'Our Occupancy',
-          data: [0.861,0.774,0.850,0.915,0.945,0.880,0.871,0.752,0.757,0.643,0.806,0.759,0.690,0.611,0.578,0.744,0.810,0.745],
-          borderColor: '#0f4c75', backgroundColor: '#0f4c7520', borderWidth: 2.5, tension: 0.3, pointRadius: 3
-        },{
-          label: 'Comp Set Occupancy',
-          data: [0.807,0.741,0.784,0.831,0.870,0.845,0.829,0.870,0.838,0.750,0.760,0.823,0.772,0.770,0.726,0.808,0.856,0.829],
-          borderColor: '#e67e22', backgroundColor: '#e67e2215', borderWidth: 2, borderDash: [5,4], tension: 0.3, pointRadius: 3
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: true,
-        plugins: {
-          legend: { position: 'top', labels: { font: { size: 11 }, usePointStyle: true } },
-          tooltip: { callbacks: { label: c => c.dataset.label + ': ' + (c.parsed.y*100).toFixed(1) + '%' } }
-        },
-        scales: {
-          y: { min: 0.5, max: 1.0, ticks: { callback: v => (v*100).toFixed(0)+'%', font:{size:11} }, grid:{color:'#eee'} },
-          x: { ticks: { font:{size:10} }, grid:{display:false} }
-        }
-      }
-    });
-  }
-
-  function updateLastUpdated() {
-    const el = document.getElementById('lastUpdated');
-    if (el) el.textContent = 'Last updated: ' + new Date().toLocaleString();
-  }
-
-  document.addEventListener('DOMContentLoaded', updateLastUpdated);
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { document.querySelectorAll('.co-block.open').forEach(b => b.classList.remove('open')); }
-  });
-
-  window.show = show;
-  window.toggle = toggle;
-  window.toggleTask = toggleTask;
-  window.copyEmail = copyEmail;
-  window.openFile = openFile;
-  window.sendPrompt = sendPrompt;
-})();
-</script>
-</body>
-</html>
+      <div class="card"><div class="card-title">📊 STR Performance — Occupancy vs. Comp Set</div><div style="height:300px;max-height:300px;"><canvas id="strChart" aria-label="Occupancy comparison chart: our hotel vs comp set over time"></canvas></div><p style="font-size:var(--text-xs);color:var(--fg-subtle);margin-top:var(--space-2);text-align:center;">Source: STR report — re-upload STR PDF to refresh data</p></div>
+      <div class="card"><div class="card-title">🏨 Corporate Account Summary</div><div class="alert-box"><strong>⚠ 35 Active Accounts</strong> · <span class="pill-g">16 Lapsed (~$7,800 recoverable)</span> · <span class="pill-o">Gap Inc: Top account to protect</span></div><table class="acct-table" role="table"><thead><tr><th>Account</th><th>Status</th><th>Annual Rev</th><th>Nights</th><th>Action</th></tr></thead><tbody><tr><td>Gap Inc</td><td><span class="pill-g">Active</span></td><td>$12,400</td><td>156</td><td>Protect — VIP treatment</td></tr><tr><td>Hyundai/Contractors</td><td><span class="pill-g">Active</span></td><td>$9,800</td><td>124</td><td>Expand — growing demand</td></tr><tr><td>Gulfstream</td><td><span class="pill-g">Active</span></td><td>$8,200</td><td>103</td><td>Formalize corporate rate</td></tr><tr><td>JCB</td><td><span class="pill-o">At Risk</span></td><td>$6,100</td><td>77</td
