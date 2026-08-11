@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holiday Inn Pooler — The Occupancy Gap</title>
+<style>
+  :root {
+    --ink: #0f172a; --ink-2: #475569; --ink-3: #7c8798;
+    --surface: #ffffff; --plane: #f1f5f9; --line: #e2e8f0;
+    --brand: #0f4c75; --brand-light: #e0f2fe;
+    --series-1: #2a78d6; --series-2: #eb6834;
+    --good: #0ca30c; --warning: #fab219; --serious: #ec835a; --critical: #d03b3b;
+    --grid: #e1e0d9; --axis: #c3c2b7; --muted-ink: #898781;
+    --font: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: var(--font); background: var(--plane); color: var(--ink);
+    -webkit-font-smoothing: antialiased; overflow: hidden;
+  }
+
+  /* ---------- Slide frame: fixed 16:9 canvas, scaled to fit any screen ---------- */
+  #stage { position: fixed; inset: 0; display: grid; place-items: center; }
+  #canvas { width: 1280px; height: 720px; position: relative; transform-origin: center center; }
+  .slide {
+    position: absolute; inset: 0; background: var(--surface);
+    border-radius: 14px; box-shadow: 0 24px 60px rgba(15, 23, 42, 0.16);
+    padding: 56px 72px; display: none; flex-direction: column;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; animation: in 260ms ease; }
+  @keyframes in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand); margin-bottom: 14px; }
+  h1 { font-size: 54px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.08; }
+  h2 { font-size: 40px; font-weight: 700; letter-spacing: -0.022em; line-height: 1.12; margin-bottom: 10px; }
+  .sub { font-size: 19px; color: var(--ink-2); line-height: 1.55; max-width: 78ch; }
+  .slide-body { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
+  .kicker { margin-top: auto; padding-top: 22px; border-top: 1px solid var(--line); font-size: 16px; color: var(--ink-2); line-height: 1.55; }
+  .kicker strong { color: var(--ink); }
+
+  /* Title slide */
+  .title-slide { background: linear-gradient(135deg, #0f4c75 0%, #14618f 55%, #1a6ea3 100%); color: #fff; justify-content: center; }
+  .title-slide .eyebrow { color: rgba(255,255,255,0.72); }
+  .title-slide h1 { font-size: 62px; max-width: 20ch; }
+  .title-slide .sub { color: rgba(255,255,255,0.86); margin-top: 20px; font-size: 21px; }
+  .title-meta { margin-top: 48px; padding-top: 26px; border-top: 1px solid rgba(255,255,255,0.22); display: flex; gap: 44px; font-size: 15px; color: rgba(255,255,255,0.8); }
+  .title-meta strong { display: block; color: #fff; font-size: 17px; font-weight: 600; margin-bottom: 2px; }
+
+  /* Big statement */
+  .statement { font-size: 46px; font-weight: 700; line-height: 1.22; letter-spacing: -0.02em; max-width: 22ch; }
+  .statement em { font-style: normal; color: var(--brand); }
+  .statement .neg { color: var(--critical); }
+
+  /* Stat rows */
+  .stats { display: grid; gap: 20px; }
+  .stats.c2 { grid-template-columns: repeat(2, 1fr); }
+  .stats.c3 { grid-template-columns: repeat(3, 1fr); }
+  .stats.c4 { grid-template-columns: repeat(4, 1fr); }
+  .stat { background: var(--plane); border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; }
+  .stat-fig { font-size: 46px; font-weight: 700; line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; }
+  .stat-lab { font-size: 13px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); }
+  .stat-note { font-size: 15px; color: var(--ink-2); margin-top: 8px; line-height: 1.45; }
+
+  /* Two-column split */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .split.wide-left { grid-template-columns: 1.45fr 1fr; }
+
+  /* Index bars */
+  .idx { display: grid; grid-template-columns: 148px 1fr 108px; gap: 18px; align-items: center; padding: 17px 0; border-bottom: 1px solid var(--line); }
+  .idx:last-child { border-bottom: none; }
+  .idx-n { font-size: 17px; font-weight: 700; } .idx-n small { display: block; font-size: 13px; font-weight: 500; color: var(--ink-3); }
+  .idx-t { position: relative; height: 30px; background: var(--plane); border-radius: 5px; }
+  .idx-base { position: absolute; left: 50%; top: -6px; bottom: -6px; width: 2px; background: var(--axis); }
+  .idx-base-lab { position: absolute; left: 50%; top: -26px; transform: translateX(-50%); font-size: 12px; font-weight: 700; letter-spacing: 0.09em; color: var(--muted-ink); white-space: nowrap; }
+  #idx { padding-top: 26px; }
+  .idx-f { position: absolute; top: 5px; height: 20px; border-radius: 3px; }
+  .idx-v { text-align: right; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; }
+  .idx-v small { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; }
+
+  /* Lists */
+  .points { list-style: none; display: grid; gap: 16px; }
+  .points li { font-size: 19px; line-height: 1.5; color: var(--ink-2); padding-left: 30px; position: relative; }
+  .points li strong { color: var(--ink); }
+  .points li::before { content: ''; position: absolute; left: 0; top: 10px; width: 9px; height: 9px; border-radius: 50%; background: var(--brand); }
+  .points li.neg::before { background: var(--critical); } .points li.pos::before { background: var(--good); }
+
+  /* Initiative grid */
+  .init-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding-top: 18px; }
+  .init { background: var(--plane); border: 1px solid var(--line); border-top: 3px solid var(--brand); border-radius: 10px; padding: 14px 15px 15px; }
+  .init.hot { border-top-color: var(--critical); background: #fff5f5; }
+  .init-n { width: 22px; height: 22px; border-radius: 50%; background: var(--brand); color: #fff; font-size: 12px; font-weight: 700; display: grid; place-items: center; margin-bottom: 10px; }
+  .init.hot .init-n { background: var(--critical); }
+  .init-t { font-size: 15px; font-weight: 700; line-height: 1.28; margin-bottom: 7px; }
+  .init-d { font-size: 13px; color: var(--ink-2); line-height: 1.45; }
+  .init-span2 { grid-column: span 2; display: flex; flex-direction: column; justify-content: center; background: var(--brand-light); border: 1px solid #bae6fd; border-top-color: var(--brand); }
+  .init-span2 .init-t { font-size: 17px; }
+  .init-span2 .init-d { font-size: 14px; }
+
+  /* Roadmap */
+  .rm { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .rm-col { border-top: 3px solid var(--brand); padding-top: 16px; }
+  .rm-col:nth-child(2) { border-top-color: var(--series-1); } .rm-col:nth-child(3) { border-top-color: var(--muted-ink); }
+  .rm-when { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand); margin-bottom: 4px; }
+  .rm-col:nth-child(2) .rm-when { color: var(--series-1); } .rm-col:nth-child(3) .rm-when { color: var(--muted-ink); }
+  .rm-h { font-size: 19px; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+  .rm-l { list-style: none; display: grid; gap: 9px; }
+  .rm-l li { font-size: 15px; color: var(--ink-2); line-height: 1.42; padding-left: 16px; position: relative; }
+  .rm-l li::before { content: '▸'; position: absolute; left: 0; color: var(--ink-3); }
+
+  /* Ask slide */
+  .ask { display: grid; gap: 14px; }
+  .ask-item { display: grid; grid-template-columns: 42px 1fr; gap: 18px; align-items: start; background: var(--plane); border: 1px solid var(--line); border-radius: 11px; padding: 17px 22px; }
+  .ask-n { width: 42px; height: 42px; border-radius: 50%; background: var(--brand); color: #fff; font-size: 18px; font-weight: 700; display: grid; place-items: center; }
+  .ask-t { font-size: 19px; font-weight: 700; margin-bottom: 3px; }
+  .ask-d { font-size: 15px; color: var(--ink-2); line-height: 1.45; }
+  .ask-item.urgent .ask-n { background: var(--critical); }
+
+  .flag { display: inline-block; background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; font-size: 14px; font-weight: 700; border-radius: 999px; padding: 5px 15px; margin-bottom: 16px; }
+  .flag.ok { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+
+  /* Chart */
+  .chart-wrap { width: 100%; }
+  .chart-wrap svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .legend { display: flex; gap: 26px; font-size: 14px; font-weight: 600; color: var(--ink-2); margin-bottom: 10px; }
+  .legend span.sw { display: inline-block; width: 18px; height: 3px; border-radius: 2px; margin-right: 8px; vertical-align: middle; }
+  .legend .dash { height: 0; border-top: 3px dashed var(--series-2); }
+
+  /* Chrome */
+  .pagenum { position: absolute; bottom: 22px; right: 30px; font-size: 13px; font-weight: 600; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .title-slide .pagenum { color: rgba(255,255,255,0.55); }
+  .brandmark { position: absolute; bottom: 22px; left: 72px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  #progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--brand); transition: width 260ms ease; z-index: 10; }
+  #helpbar {
+    position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.85); color: #fff; font-size: 12.5px; font-weight: 600;
+    padding: 7px 16px; border-radius: 999px; z-index: 10; letter-spacing: 0.01em;
+    transition: opacity 400ms ease; backdrop-filter: blur(6px);
+  }
+  #helpbar.hide { opacity: 0; pointer-events: none; }
+  kbd { background: rgba(255,255,255,0.16); border-radius: 4px; padding: 1px 6px; font-family: var(--font); font-size: 12px; }
+
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    body { overflow: visible; background: #fff; }
+    #stage { position: static; display: block; }
+    #canvas { width: 1280px; height: auto; transform: none !important; }
+    .slide { display: flex !important; position: relative; inset: auto; width: 1280px; height: 720px; border-radius: 0; box-shadow: none; page-break-after: always; break-after: page; animation: none; }
+    #helpbar, #progress { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="stage"><div id="canvas">
+
+  <!-- ============ 1 · TITLE ============ -->
+  <section class="slide title-slide active">
+    <div class="eyebrow">Holiday Inn &amp; Suites Savannah Airport – Pooler</div>
+    <h1>We are not overpriced.<br>We are under-occupied.</h1>
+    <p class="sub">A performance diagnosis and 90-day recovery plan for 100 Outlet Pkwy — built from STR STAR data, guest satisfaction scores, six on-site competitor walkthroughs, and a 569-page account review.</p>
+    <div class="title-meta">
+      <div><strong>Shyam Patel</strong>Prepared for ownership</div>
+      <div><strong>August 11, 2026</strong>Phase 4 of 5 — Present &amp; Implement</div>
+      <div><strong>104 rooms · Built 2019</strong>TripAdvisor #4 of 22 in Pooler</div>
+    </div>
+    <div class="pagenum">1 / 10</div>
+  </section>
+
+  <!-- ============ 2 · THE ONE THING ============ -->
+  <section class="slide">
+    <div class="eyebrow">The diagnosis</div>
+    <div class="slide-body">
+      <div class="split">
+        <div>
+          <p class="statement">Guests <em>will</em> pay our price.<br><span class="neg">Fewer of them are choosing us.</span></p>
+          <p class="sub" style="margin-top: 24px;">Our average daily rate sits <strong>above</strong> the competitive set. Our occupancy sits <strong>8.6 points below</strong> it. Those two facts together rule out a pricing problem and point at one thing: the experience.</p>
+        </div>
+        <div class="stats c2">
+          <div class="stat">
+            <div class="stat-fig" style="color: var(--good);">$148.63</div>
+            <div class="stat-lab">Our ADR</div>
+            <div class="stat-note">Higher than the comp set. Rate is not the issue.</div>
+          </div>
+          <div class="stat">
+            <div class="stat-fig" style="color: var(--critical);">71.8%</div>
+            <div class="stat-lab">Our occupancy</div>
+            <div class="stat-note">Comp set runs 80.5%. This is the issue.</div>
+          </div>
+          <div class="stat" style="grid-column: span 2; background: #fff5f5; border-color: #fecaca;">
+            <div class="stat-fig" style="color: var(--critical);">$106.75 <span style="font-size: 24px; color: var(--ink-3); font-weight: 600;">vs $117.35 comp set</span></div>
+            <div class="stat-lab">RevPAR — revenue per available room</div>
+            <div class="stat-note">We lose <strong>$10.60 on every room we own, every night of the year</strong> — whether or not it sells.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="kicker"><strong>What this rules out:</strong> discounting. Cutting rate would surrender the one measure we win on to chase volume we can earn back by fixing service instead.</div>
+    <div class="brandmark">Holiday Inn Pooler</div><div class="pagenum">2 / 10</div>
+  </section>
+
+  <!-- ============ 3 · THE CHART ============ -->
+  <section class="slide">
+    <div class="eyebrow">18 months of STR data</div>
+    <h2>We led this market until June 2025.</h2>
+    <div class="slide-body">
+      <div class="legend">
+        <span><span class="sw" style="background: var(--series-1);"></span>Our occupancy</span>
+        <span><span class="sw dash"></span>Competitive set</span>
+      </div>
+      <div class="chart-wrap"><svg id="occ" viewBox="0 0 1120 340" role="img" aria-label="Line chart of monthly occupancy, November 2024 through April 2026. Our line runs above the competitive set through May 2025, crosses below in June 2025, and stays below it in ten of the eleven months that follow."></svg></div>
+    </div>
+    <div class="kicker"><strong>Seven straight months above the comp set, then a crossover we never recovered from.</strong> Since June 2025 we have finished above the market exactly once. The comp set rides the same seasons we do and stayed up — so this is not weather, and it is not the calendar.</div>
+    <div class="brandmark">Holiday Inn Pooler</div><div class="pagenum">3 / 10</div>
+  </section>
+
+  <!-- ============ 4 · THE THREE INDICES ============ -->
+  <section class="slide">
+    <div class="eyebrow">Where we win and where we lose</div>
+    <h2>Three numbers, one scale. 100 is our fair share.</h2>
+    <p class="sub">Each index compares us against the competitive set. Above 100 we beat the market; below 100 the market beats us.</p>
+    <div class="slide-body">
+      <div id="idx"></div>
+    </div>
+    <div class="kicker"><strong>RGI fell 16.5% in a single year</strong> — the fastest-moving number in this deck. We are not drifting down; we are losing share at speed, and every month of delay compounds it.</div>
+    <div class="brandmark">Holiday Inn Pooler</div><div class="pagenum">4 / 10</div>
+  </section>
+
+  <!-- ============ 5 · THE MONEY ============ -->
+  <section class="slide">
+    <div class="eyebrow">What the gap is worth</div>
+    <h2>$195,000 – $362,000 a year.</h2>
+    <p class="sub">Modeled from published Cornell hospitality research: every one-point gain in guest satisfaction returns roughly <strong>1.42% in RevPAR</strong>. This is the recoverable range, not the theoretical ceiling.</p>
+    <div class="slide-body">
+      <div class="stats c3">
+        <div class="stat">
+          <div class="stat-fig" style="color: var(--critical);">$10.60</div>
+          <div class="stat-lab">Lost per room-night</div>
+          <div class="stat-note">The RevPAR gap against the comp set — across all 104 rooms, every night.</div>
+        </div>
+        <div class="stat" style="background: var(--brand-light); border-color: #bae6fd;">
+          <div class="stat-fig" style="color: var(--brand);">$195K–$362K</div>
+          <div class="stat-lab">Modeled annual upside</div>
+          <div class="stat-note">The number we are asking you to act on. Satisfaction-driven, evidence-based.</div>
+        </div>
+        <div class="stat">
+          <div class="stat-fig" style="color: var(--ink-3);">~$402K</div>
+          <div class="stat-lab">Full fair share (ceiling)</div>
+          <div class="stat-note">If we closed the gap completely. Shown for context — no property captures all of it.</div>
+        </div>
+      </div>
+    </div>
+    <div class="kicker"><strong>Five of the seven fixes cost nothing but process.</strong> The only meaningful spend on this list is a targeted bathroom repair — on a building that is seven years old, not a renovation.</div>
+    <div class="brandmark">Holiday Inn Pooler</div><div class="pagenum">5 / 10</div>
+  </section>
+
+  <!-- ============ 6 · ROOT CAUSE ============ -->
+  <section class="slide">
+    <div class="eyebrow">Root cause</div>
+    <h2>The guests already told us what is wrong.</h2>
+    <div class="slide-body">
+      <div class="split wide-left">
+        <div id="scores"></div>
+        <div>
+          <ul class="points">
+            <li class="neg"><strong>Problem Handling is the lowest score in the file.</strong> When a stay goes wrong, we do not save it — and that is the exact moment a guest decides whether to write a 3★ or a 5★.</li>
+            <li class="neg"><strong>We perform worst on 3–4 night stays</strong> — the port, Hyundai, and JCB contractor business we most want to grow.</li>
+            <li class="pos"><strong>This is fixable without capital.</strong> Recovery is a script, a menu of remedies, and a 48-hour response rule.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="kicker"><strong>We held #1–2 in Pooler from 2021 to 2023.</strong> Today Drury holds #1 at 4.8★ in our price range, and a new Fairfield is adding reviews about three times faster than we are. This is a recovery, not a first climb — but the window narrows every month.</div>
+    <div class="brandmark">Holiday Inn Pooler</div><div class="pagenum">6 / 10</div>
+  </section>
+
+  <!-- ============ 7 · THE 7 INITIATIVES ============ -->
+  <section class="slide">
+    <div class="eyebrow">The plan</div>
+    <h2>Seven initiatives, each tied to a root cause.</h2>
+    <p class="sub" style="max-width: none;">Each carries a named owner, cost, timeline, and KPI target in the Strategic Blueprint — and the GM is accountable for all seven.</p>
+    <div class="slide-body">
+      <div class="init-grid">
+        <div class="init hot init-span2">
+          <div class="init-n">2</div>
+          <div class="init-t">Service recovery &amp; review response</div>
+          <div class="init-d">The #1 broken link — Problem Handling at 40.74. Every review answered within 48 hours; every on-property complaint gets a same-day recovery from a defined menu. No capital cost.</div>
+        </div>
+        <div class="init hot init-span2">
+          <div class="init-n">4</div>
+          <div class="init-t">Cleanliness &amp; bathroom condition</div>
+          <div class="init-d">Our worst physical area — Shower/Bath at 65.98. Targeted repair and deep-clean, plus a room-readiness gate so no room is sold before it passes. The one real spend.</div>
+        </div>
+        <div class="init"><div class="init-n">1</div><div class="init-t">Breakfast value perception</div><div class="init-d">Tiered pricing and a first-night intro rate — within the no-free-breakfast constraint. The food is already good.</div></div>
+        <div class="init"><div class="init-n">3</div><div class="init-t">Arrival &amp; check-in</div><div class="init-d">A warm, consistent script on every shift that names the fireplace and the grill.</div></div>
+        <div class="init"><div class="init-n">5</div><div class="init-t">Loyalty recognition</div><div class="init-d">IHG members recognized at check-in. Costs nothing; purely process.</div></div>
+        <div class="init"><div class="init-n">6</div><div class="init-t">Mid-stay refresh</div><div class="init-d">A scheduled touch on 3+ night stays — the exact segment scoring worst.</div></div>
+        <div class="init" style="grid-column: span 4;"><div class="init-n">7</div><div class="init-t">OTA expectation management — and the asset we are not selling</div><div class="init-d">Audit photos and descriptions across every channel so the listing matches the stay. And add the <strong>outdoor fireplace</strong>: no competitor in Pooler has one, and it currently appears in none of our marketing. Zero cost, this week.</div></div>
+      </div>
+    </div>
+    <div class="brandmark">Holiday Inn Pooler</div><div class="pagenum">7 / 10</div>
+  </section>
+
+  <!-- ============ 8 · ROADMAP ============ -->
+  <section class="slide">
+    <div class="eyebrow">90-day roadmap</div>
+    <h2>What happens, and when.</h2>
+    <div class="slide-body">
+      <div class="rm">
+        <div class="rm-col">
+          <div class="rm-when">Weeks 1–2</div>
+          <div class="rm-h">Stop the bleeding</div>
+          <ul class="rm-l">
+            <li>Room-Readiness Gate — no room sold until it passes</li>
+            <li>Check-in script live on every shift</li>
+            <li>48-hour review-response rule in force</li>
+            <li>Close the two open safety items: weed-smell locations and the key card audit</li>
+          </ul>
+        </div>
+        <div class="rm-col">
+          <div class="rm-when">Weeks 2–4</div>
+          <div class="rm-h">Fix what guests score us on</div>
+          <ul class="rm-l">
+            <li>Bathroom repair scoped, priced, started</li>
+            <li>Breakfast tier pricing live</li>
+            <li>Fireplace added to OTA photos, website, and check-in</li>
+            <li>Mid-stay refresh protocol for 3+ night stays</li>
+          </ul>
+        </div>
+        <div class="rm-col">
+          <div class="rm-when">Days 30–90</div>
+          <div class="rm-h">Make it stick, then go get demand</div>
+          <ul class="rm-l">
+            <li>Loyalty recognition audited on live check-ins</li>
+            <li>5 corporate targets contacted by the sales team</li>
+            <li>16 lapsed accounts worked with drafted win-backs</li>
+            <li>Re-measure STR indices against today's baseline</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="kicker"><strong>Every item above is already written.</strong> The scripts, the checklists, the RACI matrix, and all five outreach emails with verified contacts exist today. Nothing here waits on new work — it waits on a decision.</div>
+    <div class="brandmark">Holiday Inn Pooler</div><div class="pagenum">8 / 10</div>
+  </section>
+
+  <!-- ============ 9 · MONEY ALREADY ON THE TABLE ============ -->
+  <section class="slide">
+    <div class="eyebrow">Immediate opportunities</div>
+    <h2>Four things already sitting on the table.</h2>
+    <div class="slide-body">
+      <div class="stats c2">
+        <div class="stat" style="background: #fff5f5; border-color: #fecaca;">
+          <div class="stat-fig" style="font-size: 34px; color: var(--critical);">8 days</div>
+          <div class="stat-lab">Pooler Chamber — Aug 19 luncheon</div>
+          <div class="stat-note">~250 business leaders in one room. <strong>Courtyard, DoubleTree, Fairfield, Spark and The Bluff are all Platinum members. We are not a member at all.</strong> This is the single best local room-night and catering opportunity on the calendar, and it is next week.</div>
+        </div>
+        <div class="stat">
+          <div class="stat-fig" style="font-size: 34px; color: var(--brand);">$7,800</div>
+          <div class="stat-lab">16 lapsed corporate accounts</div>
+          <div class="stat-note">Identified in the 569-page production report. Win-back emails are drafted and ready for the sales team to send.</div>
+        </div>
+        <div class="stat">
+          <div class="stat-fig" style="font-size: 34px; color: var(--brand);">5 targets</div>
+          <div class="stat-lab">Corporate outreach, verified contacts</div>
+          <div class="stat-note">Hyundai Metaplant (8,500 jobs → 12,500 by 2028), Gulfstream (~15,000 employees), JCB (HQ minutes away), Georgia Ports, and the Ghost Pirates. Named people, confirmed addresses, drafted emails.</div>
+        </div>
+        <div class="stat">
+          <div class="stat-fig" style="font-size: 34px; color: var(--good);">$0</div>
+          <div class="stat-lab">Cost of marketing the fireplace</div>
+          <div class="stat-note">No competitor in Pooler has an outdoor fireplace. It appears in none of our photos, none of our listings, and no part of our check-in. It is the cheapest differentiator we own.</div>
+        </div>
+      </div>
+    </div>
+    <div class="brandmark">Holiday Inn Pooler</div><div class="pagenum">9 / 10</div>
+  </section>
+
+  <!-- ============ 10 · THE ASK ============ -->
+  <section class="slide">
+    <div class="eyebrow">The ask</div>
+    <h2>Four decisions today.</h2>
+    <div class="slide-body">
+      <div class="ask">
+        <div class="ask-item urgent">
+          <div class="ask-n">1</div>
+          <div><div class="ask-t">Approve the two no-cost fixes to start Monday</div><div class="ask-d">The Room-Readiness Gate and the 48-hour review-response rule. Both are written, both are free, and both target the lowest score we have.</div></div>
+        </div>
+        <div class="ask-item urgent">
+          <div class="ask-n">2</div>
+          <div><div class="ask-t">Decide on Chamber membership this week</div><div class="ask-d">The August 19 luncheon is eight days away. Every hotel we compete with is already a member.</div></div>
+        </div>
+        <div class="ask-item">
+          <div class="ask-n">3</div>
+          <div><div class="ask-t">Name an owner for each of the seven initiatives</div><div class="ask-d">The RACI matrix is built and the GM is accountable throughout. It needs names filled in to become real.</div></div>
+        </div>
+        <div class="ask-item">
+          <div class="ask-n">4</div>
+          <div><div class="ask-t">Release the outreach package to the sales team</div><div class="ask-d">Five corporate targets and sixteen win-back accounts, drafted and ready. I cannot send these — I am an intern and these need to come from the hotel.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kicker"><strong>School starts tomorrow.</strong> Everything in this deck — the blueprint, the model, the RACI, the outreach — is written down and handed over, so the plan does not depend on my hours. What it needs now is owners and a start date. <em>— Shyam</em></div>
+    <div class="brandmark">Holiday Inn Pooler</div><div class="pagenum">10 / 10</div>
+  </section>
+
+</div></div>
+
+<div id="helpbar"><kbd>→</kbd> next · <kbd>←</kbd> back · <kbd>F</kbd> fullscreen · <kbd>P</kbd> print to PDF</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Scale the fixed 1280×720 canvas to fit any screen ---------- */
+  var canvas = document.getElementById('canvas');
+  function fit() {
+    var pad = 40;
+    var s = Math.min((window.innerWidth - pad) / 1280, (window.innerHeight - pad) / 720);
+    canvas.style.transform = 'scale(' + s + ')';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+
+  /* ---------- Navigation ---------- */
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var progress = document.getElementById('progress');
+  var help = document.getElementById('helpbar');
+  var i = 0;
+
+  function go(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
+    progress.style.width = ((i + 1) / slides.length * 100) + '%';
+    if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+  }
+
+  document.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter') { e.preventDefault(); go(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'Backspace') { e.preventDefault(); go(i - 1); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(slides.length - 1); }
+    else if (k === 'f' || k === 'F') {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    }
+    else if (k === 'p' || k === 'P') { e.preventDefault(); window.print(); }
+  });
+
+  // Click anywhere to advance; click the left eighth to go back.
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('#helpbar')) return;
+    go(e.clientX < window.innerWidth / 8 ? i - 1 : i + 1);
+  });
+
+  // Touch: swipe left/right
+  var x0 = null;
+  document.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 45) go(dx < 0 ? i + 1 : i - 1);
+    x0 = null;
+  }, { passive: true });
+
+  setTimeout(function () { help.classList.add('hide'); }, 5200);
+
+  /* ---------- Slide 3 · occupancy chart ---------- */
+  var MONTHS = ['Nov 24','Dec 24','Jan 25','Feb 25','Mar 25','Apr 25','May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26'];
+  var OURS = [0.861,0.774,0.850,0.915,0.945,0.880,0.871,0.752,0.757,0.643,0.806,0.759,0.690,0.611,0.578,0.744,0.810,0.745];
+  var COMP = [0.807,0.741,0.784,0.831,0.870,0.845,0.829,0.870,0.838,0.750,0.760,0.823,0.772,0.770,0.726,0.808,0.856,0.829];
+
+  var W = 1120, H = 340, P = { t: 20, r: 74, b: 40, l: 52 };
+  var PW = W - P.l - P.r, PH = H - P.t - P.b, LO = 0.50, HI = 1.00;
+  var X = function (n) { return P.l + PW * n / (MONTHS.length - 1); };
+  var Y = function (v) { return P.t + PH * (1 - (v - LO) / (HI - LO)); };
+
+  function svgEl(tag, a) {
+    var n = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (var k in a) n.setAttribute(k, a[k]);
+    return n;
+  }
+  function text(x, y, str, a) {
+    var t = svgEl('text', a || {});
+    t.setAttribute('x', x); t.setAttribute('y', y);
+    t.textContent = str;
+    return t;
+  }
+  function line(vals) {
+    return vals.map(function (v, n) { return (n ? 'L' : 'M') + X(n).toFixed(1) + ' ' + Y(v).toFixed(1); }).join(' ');
+  }
+
+  var svg = document.getElementById('occ');
+
+  // Recessive grid + y labels
+  [0.5, 0.6, 0.7, 0.8, 0.9, 1.0].forEach(function (v) {
+    svg.appendChild(svgEl('line', { x1: P.l, x2: W - P.r, y1: Y(v), y2: Y(v), stroke: 'var(--grid)', 'stroke-width': 1 }));
+    svg.appendChild(text(P.l - 10, Y(v) + 5, Math.round(v * 100) + '%', { 'text-anchor': 'end', fill: 'var(--muted-ink)', 'font-size': 13, 'font-weight': 600 }));
+  });
+
+  // Shade the period we've been behind — makes the story visible, not just plotted
+  svg.appendChild(svgEl('rect', { x: X(7), y: P.t, width: X(17) - X(7), height: PH, fill: 'var(--critical)', 'fill-opacity': 0.045 }));
+  svg.appendChild(svgEl('line', { x1: X(7), x2: X(7), y1: P.t, y2: P.t + PH, stroke: 'var(--critical)', 'stroke-width': 1.5, 'stroke-opacity': 0.5 }));
+  svg.appendChild(text(X(7) + 9, P.t + 15, 'June 2025 — we fall behind and stay behind', { fill: 'var(--critical)', 'font-size': 13, 'font-weight': 700 }));
+
+  // X labels every 3rd month + the final one
+  MONTHS.forEach(function (m, n) {
+    if (n % 3 !== 0 && n !== MONTHS.length - 1) return;
+    svg.appendChild(text(X(n), H - P.b + 24, m, { 'text-anchor': 'middle', fill: 'var(--muted-ink)', 'font-size': 12, 'font-weight': 600 }));
+  });
+
+  // Series — comp set dashed so identity never rests on color alone
+  svg.appendChild(svgEl('path', { d: line(COMP), fill: 'none', stroke: 'var(--series-2)', 'stroke-width': 2.5, 'stroke-dasharray': '7 5', 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
+  svg.appendChild(svgEl('path', { d: line(OURS), fill: 'none', stroke: 'var(--series-1)', 'stroke-width': 2.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
+
+  // Selective direct labels at the right edge
+  var last = MONTHS.length - 1;
+  [[COMP, 'var(--series-2)', 'Comp set'], [OURS, 'var(--series-1)', 'Us']].forEach(function (s) {
+    svg.appendChild(svgEl('circle', { cx: X(last), cy: Y(s[0][last]), r: 5, fill: s[1], stroke: '#fff', 'stroke-width': 2 }));
+    svg.appendChild(text(X(last) + 12, Y(s[0][last]) - 1, (s[0][last] * 100).toFixed(1) + '%', { fill: s[1], 'font-size': 15, 'font-weight': 700 }));
+    svg.appendChild(text(X(last) + 12, Y(s[0][last]) + 15, s[2], { fill: 'var(--muted-ink)', 'font-size': 12, 'font-weight': 600 }));
+  });
+
+  /* ---------- Slide 4 · index bars ---------- */
+  var IDX = [
+    { n: 'ARI', s: 'Rate index', v: 102, good: true, verdict: '▲ WINNING' },
+    { n: 'MPI', s: 'Occupancy index', v: 89, good: false, verdict: '▼ LOSING' },
+    { n: 'RGI', s: 'RevPAR index', v: 91, good: false, verdict: '▼ −16.5% YoY' }
+  ];
+  document.getElementById('idx').innerHTML = IDX.map(function (d, n) {
+    var pct = (d.v - 80) / 40 * 100;
+    var left = Math.min(pct, 50), width = Math.abs(pct - 50);
+    var c = d.good ? 'var(--good)' : 'var(--critical)';
+    return '<div class="idx">' +
+      '<div class="idx-n">' + d.n + '<small>' + d.s + '</small></div>' +
+      '<div class="idx-t">' + (n === 0 ? '<span class="idx-base-lab">FAIR SHARE = 100</span>' : '') +
+        '<span class="idx-base"></span><span class="idx-f" style="left:' + left + '%;width:' + width + '%;background:' + c + '"></span></div>' +
+      '<div class="idx-v" style="color:' + c + '">' + d.v + '<small>' + d.verdict + '</small></div>' +
+    '</div>';
+  }).join('');
+
+  /* ---------- Slide 6 · guest scores ---------- */
+  var SCORES = [
+    { n: 'Problem Handling', v: 40.74, c: 'var(--critical)' },
+    { n: 'Shower / Bath', v: 65.98, c: 'var(--serious)' }
+  ];
+  document.getElementById('scores').innerHTML = SCORES.map(function (s) {
+    return '<div style="margin-bottom:30px;">' +
+      '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;">' +
+        '<span style="font-size:20px;font-weight:700;">' + s.n + '</span>' +
+        '<span style="font-size:34px;font-weight:700;letter-spacing:-0.02em;color:' + s.c + '">' + s.v.toFixed(2) + '</span>' +
+      '</div>' +
+      '<div style="position:relative;height:16px;background:var(--plane);border:1px solid var(--line);border-radius:4px;">' +
+        '<span style="position:absolute;left:0;top:0;bottom:0;width:' + s.v + '%;background:' + s.c + ';border-radius:3px;"></span>' +
+      '</div>' +
+    '</div>';
+  }).join('') +
+  '<p style="font-size:14px;color:var(--ink-3);line-height:1.5;">Heartbeat / Medallia guest satisfaction scores, out of 100. These are the two measured problem areas — not estimates.</p>';
+
+  /* ---------- Deep-link to a slide ---------- */
+  var start = parseInt((location.hash || '').slice(1), 10);
+  go(isNaN(start) ? 0 : start - 1);
+})();
+</script>
+</body>
+</html>
