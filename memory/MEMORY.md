@@ -1,5 +1,6 @@
 # Memory Index
 
+- [Data corrections](data-corrections.md) — **READ BEFORE QUOTING ANY ACCOUNT NUMBER.** Verified 569-page production extraction (reconciles to $0.00); 831 companies / 467 active / 309 lapsed; Jan–May 2026 −36.5% rev vs 2025; declining accounts (−$950K) outweigh lapsed (−$882K); NFI is a save not a win-back; retires the 929-accounts / $7,800 / Gap-Inc-top-account figures
 - [Shyam's identity](shyam-identity.md) — Shyam Patel, rising senior at Woodward Academy; Holiday Inn intern reporting to GM Mathew Gaines; college targets UNC/UGA/UT Austin/Wake Forest/BU/IU/Northeastern/UF/Furman
 - [Shyam's personal schedule](shyam-personal-schedule.md) — ACT July 11 2026 8am, T1D clinical trial, Camp Kudzu CIT, Sunday-noon shelter volunteering
 - [Shyam's schedule](shyam-schedule.md) — school starts Aug 12 2026; summer: Holiday Inn project + internship search; tools: Warp, Google, Claude

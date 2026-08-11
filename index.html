@@ -293,6 +293,7 @@
         <div class="ir"><div class="id d-g"></div><div class="ir-text"><strong>Guest mix: 60%+ are 56 or older, ~68% leisure travelers.</strong> Amenity and accessibility decisions should be aimed at this guest, not a generic business traveler.</div></div>
         <div class="ir"><div class="id d-o"></div><div class="ir-text"><strong>Breakfast cannot be made free</strong> (owner constraint, ~$15 paid). Pivot to tiered pricing, a first-night intro rate, a direct-booking credit, or an evening amenity.</div></div>
         <div class="ir"><div class="id d-o"></div><div class="ir-text"><strong>We are not a Pooler Chamber member.</strong> Courtyard, DoubleTree, Fairfield, Spark, and The Bluff are all Platinum members. The Aug 19 Awards Luncheon draws ~250 business leaders.</div></div>
+        <div class="ir"><div class="id d-r"></div><div class="ir-text"><strong>Corporate business fell off a cliff in the last twelve months.</strong> Like-for-like January–May, 2026 is down 33.5% in room nights and 36.5% in revenue against 2025 — the worst stretch in a verified 42-month account history.</div></div>
         <div class="ir"><div class="id d-r"></div><div class="ir-text"><strong>Weed smell reported in some areas</strong> — needs specific rooms/floors identified and escalated.</div></div>
         <div class="ir"><div class="id d-r"></div><div class="ir-text"><strong>Key card security incident reported</strong> — potential liability, needs an immediate audit and a written answer.</div></div>
         <div class="ir"><div class="id d-r"></div><div class="ir-text"><strong>Fairfield Marriott (new, 4.8★) is accumulating reviews ~3× faster than us.</strong> The window to retake the top of the market narrows every month.</div></div>
@@ -442,7 +443,9 @@
           <ul class="rm-list">
             <li>Loyalty recognition audited on live check-ins, not self-reported</li>
             <li>Corporate outreach sent by the sales team — 5 targets ready to go</li>
-            <li>16 lapsed accounts worked with the drafted win-back emails</li>
+            <li>The 121 declining accounts worked first — $950K at risk, and they are still ours</li>
+            <li>Top lapsed accounts approached: Georgia Storefronts, Barnett Southern, Smyrna Ready Mix</li>
+            <li>Duplicate-profile cleanup raised with the GM as a PMS data-hygiene fix</li>
             <li>Chamber membership decision and presence at the Aug 19 luncheon</li>
             <li>Re-measure: STR indices and guest scores against this baseline</li>
           </ul>
@@ -598,25 +601,146 @@ My name is [SENDER] at the Holiday Inn &amp; Suites Savannah Airport – Pooler 
 
     <!-- ============ ACCOUNTS ============ -->
     <section class="page" id="accounts" role="tabpanel" aria-labelledby="tab-accounts">
+      <div class="alert-box" style="background: var(--success-light); border-color: var(--success);">
+        <strong>✅ Verified extraction — reconciles to $0.00.</strong> The 569-page Profile Production Statistics report (run 06-03-26, covering 01-01-23 → 06-01-26) arrived as 12 scanned, image-only PDFs with no extractable text. It was OCR'd at 300 dpi to word level with pixel coordinates, and the table rebuilt by x-position against each block's month header rather than by reading order. Blocks that failed arithmetic were automatically re-read at 600 dpi.
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-box"><div class="stat-num">831</div><div class="stat-label">Real Companies</div><div class="stat-sub">852 raw profiles</div></div>
+        <div class="stat-box"><div class="stat-num">$3.98M</div><div class="stat-label">Total Revenue</div><div class="stat-sub">2023 → 2026 YTD</div></div>
+        <div class="stat-box"><div class="stat-num">30,445</div><div class="stat-label">Room Nights</div><div class="stat-sub">Across 42 months</div></div>
+        <div class="stat-box"><div class="stat-num" style="color: var(--st-critical);">−36.5%</div><div class="stat-label">Jan–May 26 vs 25</div><div class="stat-sub">Corporate revenue</div></div>
+      </div>
+
       <div class="card">
-        <div class="card-title">🏨 Corporate Account Summary</div>
-        <div class="alert-box"><strong>⚠ 35 active accounts</strong> · <span class="pill pill-r">16 lapsed (~$7,800 recoverable)</span> · <span class="pill pill-o">Gap Inc is the top account to protect</span></div>
+        <div class="card-title">🔒 How Far To Trust These Numbers</div>
+        <div class="ir"><div class="id d-g"></div><div class="ir-text"><strong>Sum of all accounts = $3,975,646.09 = the report's own printed Grand Total. Difference $0.00.</strong> The Grand Total was never fed into the extraction, so this is an independent check, not the pipeline agreeing with itself.</div></div>
+        <div class="ir"><div class="id d-g"></div><div class="ir-text"><strong>Matches on all 42 individual months</strong> — for revenue and for room nights.</div></div>
+        <div class="ir"><div class="id d-g"></div><div class="ir-text"><strong>0 of 35,770 rows fail nights × ADR = revenue.</strong></div></div>
+        <div class="ir"><div class="id d-g"></div><div class="ir-text"><strong>Room nights by year independently reproduce the anchors</strong> read off the report by eye back in July: 10,958 / 8,276 / 8,223 / 2,988.</div></div>
+        <div class="ir"><div class="id d-g"></div><div class="ir-text"><strong>Structurally complete:</strong> 569/569 pages, 852 profiles × exactly 4 year-blocks = 3,412. Seven random blocks (84 cells) and the top 50 company names were checked against the scans by eye — all correct.</div></div>
+        <div class="ir"><div class="id d-b"></div><div class="ir-text"><strong>The arithmetic is reliable.</strong> Every caveat below is about <em>names</em> and <em>definitions</em>, not about the figures.</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📅 Production By Year</div>
         <div class="tbl-wrap">
           <table class="acct-table">
-            <thead><tr><th>Account</th><th>Status</th><th class="num">Annual Rev</th><th class="num">Nights</th><th>Action</th></tr></thead>
+            <thead><tr><th>Year</th><th class="num">Room nights</th><th class="num">Revenue</th><th class="num">ADR</th></tr></thead>
             <tbody>
-              <tr><td>Gap Inc</td><td><span class="pill pill-g">Active</span></td><td class="num">$12,400</td><td class="num">156</td><td>Protect — VIP treatment</td></tr>
-              <tr><td>Hyundai / Contractors</td><td><span class="pill pill-g">Active</span></td><td class="num">$9,800</td><td class="num">124</td><td>Expand — growing demand</td></tr>
-              <tr><td>Gulfstream</td><td><span class="pill pill-g">Active</span></td><td class="num">$8,200</td><td class="num">103</td><td>Formalize corporate rate</td></tr>
-              <tr><td>JCB</td><td><span class="pill pill-o">At Risk</span></td><td class="num">$6,100</td><td class="num">77</td><td>In-person visit this week</td></tr>
-              <tr><td>GA Ports Authority</td><td><span class="pill pill-o">At Risk</span></td><td class="num">$5,400</td><td class="num">68</td><td>Submit procurement bid</td></tr>
-              <tr><td>Savannah Ghost Pirates</td><td><span class="pill pill-r">Lapsed</span></td><td class="num">$3,200</td><td class="num">41</td><td>Re-engage — Cassie Geer</td></tr>
-              <tr><td>Coastal Health Systems</td><td><span class="pill pill-r">Lapsed</span></td><td class="num">$2,800</td><td class="num">35</td><td>Win-back email drafted</td></tr>
-              <tr><td>Savannah Tech College</td><td><span class="pill pill-r">Lapsed</span></td><td class="num">$1,900</td><td class="num">24</td><td>Win-back email drafted</td></tr>
+              <tr><td>2023</td><td class="num">10,958</td><td class="num">$1,438,621.61</td><td class="num">$131.29</td></tr>
+              <tr><td>2024</td><td class="num">8,276</td><td class="num">$1,124,793.90</td><td class="num">$135.91</td></tr>
+              <tr><td>2025</td><td class="num">8,223</td><td class="num">$1,026,558.29</td><td class="num">$124.84</td></tr>
+              <tr><td>2026 YTD</td><td class="num">2,988</td><td class="num">$385,672.29</td><td class="num">—</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="card-note">From the 569-page production report, OCR'd and analyzed. Top 8 accounts shown; full breakdown in <strong>Production_Report_Analysis_Win_Back.docx</strong>.</p>
+        <div class="alert-box" style="margin: var(--space-4) 0 0;"><strong>⚠ Do not compare 2026 to a full year.</strong> The report ends 06-01-26, so 2026 is January–May complete <em>plus June 1 only</em> — June shows 19 room nights, which is a single day. Any "2026 is down X%" built on the full-year column is wrong by construction.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📉 Like-For-Like — January Through May</div>
+        <div class="tbl-wrap">
+          <table class="acct-table">
+            <thead><tr><th>Jan–May</th><th class="num">Room nights</th><th class="num">Revenue</th><th class="num">ADR</th></tr></thead>
+            <tbody>
+              <tr><td>2023</td><td class="num">4,562</td><td class="num">$616,361</td><td class="num">$135.11</td></tr>
+              <tr><td>2024</td><td class="num">3,510</td><td class="num">$478,844</td><td class="num">$136.42</td></tr>
+              <tr><td>2025</td><td class="num">4,464</td><td class="num">$602,357</td><td class="num">$134.94</td></tr>
+              <tr><td><strong>2026</strong></td><td class="num"><strong>2,969</strong></td><td class="num"><strong>$382,775</strong></td><td class="num"><strong>$128.92</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="card-note"><strong>The decline is recent and steep, not a slow four-year slide.</strong> Corporate business recovered in early 2025 to near-2023 levels, then fell away from mid-2025 onward. Jan–May 2026 is <strong>−33.5% room nights and −36.5% revenue against 2025</strong> — the worst stretch anywhere in the dataset.</p>
+        <p class="card-note"><strong>Rate came down too, and it did not buy volume.</strong> Full-year corporate ADR fell from $135.91 (2024) to $124.84 (2025) while nights fell as well. That is direct evidence from our own books that discounting was tried and did not work — which is exactly what the STR diagnosis argues.</p>
+        <div class="alert-box" style="margin: var(--space-4) 0 0;"><strong>⚠ Keep these two ADRs apart.</strong> The figures on this tab are <em>corporate-account</em> ADR from the production report. The $148.63 on the Diagnosis tab is <em>whole-property</em> ADR from STR. They measure different things and must never be quoted as one number.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎯 Where The Revenue Actually Went</div>
+        <div class="tbl-wrap">
+          <table class="acct-table">
+            <thead><tr><th>Cohort</th><th class="num">Accounts</th><th class="num">Revenue effect vs 2023–24</th><th>What it means</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Declining</strong> — still booking, down &gt;15%</td><td class="num">121</td><td class="num" style="color: var(--st-critical); font-weight: 700;">−$950,480</td><td>Still ours. Cheapest to save.</td></tr>
+              <tr><td><strong>Lapsed</strong> — gone entirely</td><td class="num">307</td><td class="num" style="color: var(--st-critical); font-weight: 700;">−$881,532</td><td>Hardest and slowest to recover</td></tr>
+              <tr><td><strong>Growing</strong></td><td class="num">76</td><td class="num" style="color: var(--success); font-weight: 700;">+$442,407</td><td>Protect and expand these</td></tr>
+              <tr><td><strong>New since 2025</strong></td><td class="num">244</td><td class="num" style="color: var(--success); font-weight: 700;">+$239,779</td><td>~$983 each — small but real</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert-box" style="margin: var(--space-4) 0 0;"><strong>⚠ This changes the plan.</strong> More revenue is being lost from accounts the hotel <em>still has</em> ($950K) than from accounts that left ($882K). The win-back framing targets the smaller half of the problem. Saving a current account is cheaper, faster, and more likely to work than resurrecting a dead one — so the declining list should be worked first.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🏢 Named Accounts — Corrected</div>
+        <div class="tbl-wrap">
+          <table class="acct-table">
+            <thead><tr><th>Account</th><th>Status</th><th class="num">Value</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>Benore Logistics</td><td><span class="pill pill-g">#1 account</span></td><td class="num">$340,844</td><td>Protect above everything else</td></tr>
+              <tr><td><strong>NFI Industries</strong></td><td><span class="pill pill-o">Active — collapsed 91%</span></td><td class="num">$127,045 → $11,229</td><td><strong>Save, not win back</strong></td></tr>
+              <tr><td>Georgia Storefronts</td><td><span class="pill pill-r">Lapsed</span></td><td class="num">$120,971</td><td>Top genuine win-back</td></tr>
+              <tr><td>Barnett Southern</td><td><span class="pill pill-r">Lapsed</span></td><td class="num">$109,311</td><td>Win-back #2</td></tr>
+              <tr><td>Smyrna Ready Mix</td><td><span class="pill pill-r">Lapsed</span></td><td class="num">$76,960</td><td>Win-back #3</td></tr>
+              <tr><td>Gap Inc</td><td><span class="pill pill-g">Active</span></td><td class="num">$341.98</td><td>Rank 505 of 852 — not a priority</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert-box" style="margin: var(--space-4) 0 0;"><strong>⚠ NFI Industries is not lapsed — do not pitch it as a win-back.</strong> It is still an active account that has collapsed 91%, from $127,045 in 2023–24 to $11,229 in 2025–26. Walking into that conversation calling them a lost customer would be wrong and would land badly. It is the single largest save on the list.</div>
+        <p class="card-note">Revenue concentration: top 10 accounts = <strong>38.1%</strong> of all revenue · top 25 = 56.4% · top 50 = 71.0% · top 100 = 82.8%. Losing one large account matters far more than losing many small ones.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔁 Duplicate Profiles — A PMS Data-Hygiene Problem</div>
+        <p style="font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: var(--space-4); line-height: var(--leading-relaxed);">20 customers are on file under two or more profiles — typically a proper corporate profile (Corporate ID + full address) alongside a <strong>bare-name profile with no ID and no address</strong>. That is the signature of a front-desk agent typing a name manually instead of selecting the existing account. Totals are unaffected. <strong>Rankings are not.</strong></p>
+        <div class="tbl-wrap">
+          <table class="acct-table">
+            <thead><tr><th>Company</th><th>Was showing as</th><th>Actually is</th></tr></thead>
+            <tbody>
+              <tr><td>Howard Sheppard</td><td>#41 · $20,911</td><td><strong>#22 · $41,636</strong></td></tr>
+              <tr><td>Anderson And Son</td><td>#35 · $22,393</td><td><strong>#28 · $32,414</strong></td></tr>
+              <tr><td>Franklin Management</td><td>#42 · $20,840</td><td><strong>#31 · $29,849</strong></td></tr>
+              <tr><td>Lift Power (3 profiles)</td><td>#63 · $11,363</td><td><strong>#49 · $17,462</strong></td></tr>
+              <tr><td>Concrete Supply</td><td>#22 · $40,050</td><td><strong>#20 · $43,990</strong></td></tr>
+              <tr><td>Texas Roadhouse</td><td>#20 · $42,623</td><td><strong>#19 · $44,258</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="card-note"><strong>This is worth raising with GM Mathew Gaines directly.</strong> It is not just a reporting artifact — every account report the hotel runs is splitting these customers, so they look smaller than they are and get treated accordingly. Howard Sheppard has been showing at roughly half its real size.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🚫 Numbers To Retire — Previously Circulated And Wrong</div>
+        <div class="tbl-wrap">
+          <table class="acct-table">
+            <thead><tr><th>Do not say</th><th>Say instead</th></tr></thead>
+            <tbody>
+              <tr><td><s>929 accounts</s></td><td>852 profiles / <strong>831 companies</strong></td></tr>
+              <tr><td><s>~456 active / ~283 lapsed</s></td><td><strong>467 active · 309 lapsed · 76 never produced</strong></td></tr>
+              <tr><td><s>35 active · 16 lapsed · ~$7,800 recoverable</s></td><td>Placeholder figures from an early draft — replaced entirely by this tab</td></tr>
+              <tr><td><s>Benore Logistics ~$351K</s></td><td><strong>$340,844</strong> merged ($340,328 unmerged). Still #1.</td></tr>
+              <tr><td><s>Top 3 win-backs: NFI, Georgia Storefronts, Barnett Southern ≈ $178K/yr</s></td><td><strong>NFI is active, not lapsed.</strong> Real top lapsed: Georgia Storefronts $120,971 · Barnett Southern $109,311 · Smyrna Ready Mix $76,960</td></tr>
+              <tr><td><s>Gap Inc is the top account to protect</s></td><td>Gap Inc is <strong>$341.98, rank 505 of 852</strong> — the figure itself is confirmed correct, but it is not a priority account</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⛔ What This Report Does Not Contain — Never Claim These</div>
+        <div class="ir"><div class="id d-r"></div><div class="ir-text"><strong>Rooms booked.</strong> It records <em>room-nights</em> — rooms × nights as a single figure. The two cannot be separated.</div></div>
+        <div class="ir"><div class="id d-r"></div><div class="ir-text"><strong>Length of stay.</strong> Not captured anywhere in the report.</div></div>
+        <div class="ir"><div class="id d-r"></div><div class="ir-text"><strong>Individual dates.</strong> Monthly is the finest grain available.</div></div>
+        <div class="ir"><div class="id d-r"></div><div class="ir-text"><strong>Guest names, rate plans, booking channel, or cancellations.</strong> None of these are in the data.</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📐 Caveats Kept Explicit</div>
+        <div class="ir"><div class="id d-o"></div><div class="ir-text"><strong>Company names are OCR-read.</strong> The top 50 were verified against the scans; 799 were double-read at 300 and 600 dpi; <strong>3 are flagged CHECK SPELLING</strong> in the workbook. Numbers are unaffected — accounts group by Corporate ID, not by name — but verify a name before putting it in a deliverable or in front of the GM.</div></div>
+        <div class="ir"><div class="id d-o"></div><div class="ir-text"><strong>Merging duplicate profiles is a documented judgement, not a fact from the report.</strong> The basis is recorded per row in the workbook's "Merged on" column and the unmerged view is kept intact. Two similar pairs were deliberately <em>not</em> merged: Al Farm Bureau vs Ga Farm Bureau (Alabama vs Georgia), and AMN Healthcare Services vs Healthcare Services.</div></div>
+        <div class="ir"><div class="id d-o"></div><div class="ir-text"><strong>Active / lapsed / declining / revenue-at-risk are our definitions, not the report's.</strong> Active = booked in 2025 or 2026 YTD. Lapsed = produced in 2023–24 and nothing since. Growing and declining = a ±15% band on 2025–26 versus 2023–24.</div></div>
+        <div class="ir"><div class="id d-b"></div><div class="ir-text"><strong>Method lesson worth keeping.</strong> The extraction looked clean and complete at four separate points while it was silently dropping ~75 accounts, flipping the sign on refunds, passing a cell with two compensating errors, and undercounting duplicate profiles. Every one of those was caught by an <em>independent</em> check against the report's own printed totals — never by the pipeline agreeing with itself. Internal consistency is not evidence of correctness.</div></div>
       </div>
 
       <div class="card">
@@ -659,7 +783,12 @@ My name is [SENDER] at the Holiday Inn &amp; Suites Savannah Airport – Pooler 
         <a class="file-row" onclick="openFile('Holiday_Inn_Competitive_Gap_Analysis.docx')" tabindex="0" role="button"><div class="file-icon">📊</div><div class="file-info"><div class="file-name">Holiday_Inn_Competitive_Gap_Analysis.docx</div><div class="file-desc">Full comparison against all competitors — color-coded gaps</div></div><div class="file-status s-done">✅ Complete</div></a>
         <a class="file-row" onclick="openFile('3_SWOT_Analysis.docx')" tabindex="0" role="button"><div class="file-icon">🔲</div><div class="file-info"><div class="file-name">3_SWOT_Analysis.docx</div><div class="file-desc">Pre-populated SWOT — add on-site observations to the blank lines</div></div><div class="file-status s-active">📝 In Progress</div></a>
         <a class="file-row" onclick="openFile('Corporate_Partnership_Outreach.docx')" tabindex="0" role="button"><div class="file-icon">🤝</div><div class="file-info"><div class="file-name">Corporate_Partnership_Outreach.docx</div><div class="file-desc">5 companies, verified contacts + email drafts — hand to the sales team</div></div><div class="file-status s-done">✅ Ready</div></a>
-        <a class="file-row" onclick="openFile('Production_Report_Analysis_Win_Back.docx')" tabindex="0" role="button"><div class="file-icon">📈</div><div class="file-info"><div class="file-name">Production_Report_Analysis_Win_Back.docx</div><div class="file-desc">569-page account report analysis — active, lapsed, and win-back emails</div></div><div class="file-status s-done">✅ Ready</div></a>
+        <a class="file-row" onclick="openFile('Corporate_Account_Book_2026-07-30.xlsx')" tabindex="0" role="button"><div class="file-icon">📗</div><div class="file-info"><div class="file-name">Corporate_Account_Book_2026-07-30.xlsx</div><div class="file-desc">Main deliverable — 9 sheets, start at "Companies (merged)"</div></div><div class="file-status s-done">✅ Verified</div></a>
+        <a class="file-row" onclick="openFile('company_book_MERGED_2026-08-11.csv')" tabindex="0" role="button"><div class="file-icon">📄</div><div class="file-info"><div class="file-name">company_book_MERGED_2026-08-11.csv</div><div class="file-desc">831 companies, duplicate profiles combined</div></div><div class="file-status s-done">✅ Verified</div></a>
+        <a class="file-row" onclick="openFile('production_monthly_2026-07-30.csv')" tabindex="0" role="button"><div class="file-icon">📄</div><div class="file-info"><div class="file-name">production_monthly_2026-07-30.csv</div><div class="file-desc">35,770 rows — company x year x month, the raw grain</div></div><div class="file-status s-done">✅ Verified</div></a>
+        <a class="file-row" onclick="openFile('duplicate_profiles_2026-07-30.csv')" tabindex="0" role="button"><div class="file-icon">🔁</div><div class="file-info"><div class="file-name">duplicate_profiles_2026-07-30.csv</div><div class="file-desc">The 20 split customers — raise with the GM</div></div><div class="file-status s-done">✅ Verified</div></a>
+        <a class="file-row" onclick="openFile('production_EXTRACTION-NOTES.md')" tabindex="0" role="button"><div class="file-icon">📝</div><div class="file-info"><div class="file-name">production_EXTRACTION-NOTES.md</div><div class="file-desc">Method, accuracy checks, and the bugs found along the way</div></div><div class="file-status s-done">✅ Ready</div></a>
+        <a class="file-row" onclick="openFile('Production_Report_Analysis_Win_Back.docx')" tabindex="0" role="button"><div class="file-icon">📈</div><div class="file-info"><div class="file-name">Production_Report_Analysis_Win_Back.docx</div><div class="file-desc">Earlier analysis — superseded by the account book; its account counts are wrong</div></div><div class="file-status s-active">⚠ Superseded</div></a>
 
         <div class="file-section-label">Use on visits</div>
         <a class="file-row" onclick="openFile('1_Visit_Briefing_Card.docx')" tabindex="0" role="button"><div class="file-icon">📋</div><div class="file-info"><div class="file-name">1_Visit_Briefing_Card.docx</div><div class="file-desc">Quick reference for audit visits — P1 issues, photo list, context</div></div><div class="file-status s-done">✅ Ready</div></a>
@@ -684,7 +813,7 @@ My name is [SENDER] at the Holiday Inn &amp; Suites Savannah Airport – Pooler 
         <div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Present the 10-slide deck to ownership <span class="tag t-blue">main event</span></div></div>
         <div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Get a yes/no on Chamber membership — Aug 19 luncheon is 8 days out <span class="tag t-red">time-boxed</span></div></div>
         <div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Get named owners assigned to all 7 initiatives</div></div>
-        <div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Hand the outreach + win-back package to the sales team</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Hand the outreach + account-save package to the sales team</div></div>
 
         <div class="tg-title">Open — urgent</div>
         <div class="task-row" onclick="toggleTask(this)"><div class="tcb open-cb"></div><div class="tl">Identify weed-smell rooms/floors and escalate <span class="tag t-red">urgent</span></div></div>
@@ -712,7 +841,7 @@ My name is [SENDER] at the Holiday Inn &amp; Suites Savannah Airport – Pooler 
         <div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">First on-site audit visit</div></div>
         <div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">Competitor SWOT walkthroughs (6 hotels)</div></div>
         <div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">Corporate partnership outreach — 5 companies, verified emails</div></div>
-        <div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">569-page production report OCR'd and analyzed — win-back doc built</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">569-page production report OCR'd and verified — reconciles to $0.00 against the printed Grand Total</div></div>
         <div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">STR STAR analysis — occupancy diagnosis established</div></div>
         <div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">Financial model — $195K–$362K/yr upside</div></div>
         <div class="task-row" onclick="toggleTask(this)"><div class="tcb done-cb">✓</div><div class="tl done">Strategic Blueprint drafted — 7 initiatives + 90-day roadmap</div></div>
