@@ -6,12 +6,16 @@
 <title>Holiday Inn Pooler — The Occupancy Gap</title>
 <style>
   :root {
-    --ink: #0f172a; --ink-2: #475569; --ink-3: #7c8798;
-    --surface: #ffffff; --plane: #f1f5f9; --line: #e2e8f0;
-    --brand: #0f4c75; --brand-light: #e0f2fe;
-    --series-1: #2a78d6; --series-2: #eb6834;
+    --ink: #101f19; --ink-2: #4a5a52; --ink-3: #78877f;
+    --surface: #ffffff; --plane: #f1f6f3; --line: #e2eae5;
+    /* Holiday Inn green */
+    --brand: #00693e; --brand-deep: #00532f; --brand-light: #e3f3ea; --brand-border: #b8e6cd;
+    /* Chart slot 1 is the green step of the brand hue, stepped for legibility */
+    --series-1: #1baf7a; --series-2: #eb6834;
+    /* Darker steps of the same hues for small bold text (>=4.5:1) */
+    --series-1-ink: #0a7f4f; --series-2-ink: #c2410c;
     --good: #0ca30c; --warning: #fab219; --serious: #ec835a; --critical: #d03b3b;
-    --grid: #e1e0d9; --axis: #c3c2b7; --muted-ink: #898781;
+    --grid: #e4ebe7; --axis: #c3cdc7; --muted-ink: #7e8c85;
     --font: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,7 +46,7 @@
   .kicker strong { color: var(--ink); }
 
   /* Title slide */
-  .title-slide { background: linear-gradient(135deg, #0f4c75 0%, #14618f 55%, #1a6ea3 100%); color: #fff; justify-content: center; }
+  .title-slide { background: linear-gradient(135deg, var(--brand-deep) 0%, var(--brand) 55%, #00814c 100%); color: #fff; justify-content: center; }
   .title-slide .eyebrow { color: rgba(255,255,255,0.72); }
   .title-slide h1 { font-size: 62px; max-width: 20ch; }
   .title-slide .sub { color: rgba(255,255,255,0.86); margin-top: 20px; font-size: 21px; }
@@ -95,16 +99,16 @@
   .init.hot .init-n { background: var(--critical); }
   .init-t { font-size: 15px; font-weight: 700; line-height: 1.28; margin-bottom: 7px; }
   .init-d { font-size: 13px; color: var(--ink-2); line-height: 1.45; }
-  .init-span2 { grid-column: span 2; display: flex; flex-direction: column; justify-content: center; background: var(--brand-light); border: 1px solid #bae6fd; border-top-color: var(--brand); }
+  .init-span2 { grid-column: span 2; display: flex; flex-direction: column; justify-content: center; background: var(--brand-light); border: 1px solid var(--brand-border); border-top-color: var(--brand); }
   .init-span2 .init-t { font-size: 17px; }
   .init-span2 .init-d { font-size: 14px; }
 
   /* Roadmap */
   .rm { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   .rm-col { border-top: 3px solid var(--brand); padding-top: 16px; }
-  .rm-col:nth-child(2) { border-top-color: var(--series-1); } .rm-col:nth-child(3) { border-top-color: var(--muted-ink); }
+  .rm-col:nth-child(2) { border-top-color: var(--series-1); } .rm-col:nth-child(3) { border-top-color: var(--axis); }
   .rm-when { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand); margin-bottom: 4px; }
-  .rm-col:nth-child(2) .rm-when { color: var(--series-1); } .rm-col:nth-child(3) .rm-when { color: var(--muted-ink); }
+  .rm-col:nth-child(2) .rm-when { color: #0a7f4f; } .rm-col:nth-child(3) .rm-when { color: var(--muted-ink); }
   .rm-h { font-size: 19px; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
   .rm-l { list-style: none; display: grid; gap: 9px; }
   .rm-l li { font-size: 15px; color: var(--ink-2); line-height: 1.42; padding-left: 16px; position: relative; }
@@ -241,7 +245,7 @@
           <div class="stat-lab">Lost per room-night</div>
           <div class="stat-note">The RevPAR gap against the comp set — across all 104 rooms, every night.</div>
         </div>
-        <div class="stat" style="background: var(--brand-light); border-color: #bae6fd;">
+        <div class="stat" style="background: var(--brand-light); border-color: var(--brand-border);">
           <div class="stat-fig" style="color: var(--brand);">$195K–$362K</div>
           <div class="stat-lab">Modeled annual upside</div>
           <div class="stat-note">The number we are asking you to act on. Satisfaction-driven, evidence-based.</div>
@@ -517,9 +521,9 @@
 
   // Selective direct labels at the right edge
   var last = MONTHS.length - 1;
-  [[COMP, 'var(--series-2)', 'Comp set'], [OURS, 'var(--series-1)', 'Us']].forEach(function (s) {
+  [[COMP, 'var(--series-2)', 'Comp set', 'var(--series-2-ink)'], [OURS, 'var(--series-1)', 'Us', 'var(--series-1-ink)']].forEach(function (s) {
     svg.appendChild(svgEl('circle', { cx: X(last), cy: Y(s[0][last]), r: 5, fill: s[1], stroke: '#fff', 'stroke-width': 2 }));
-    svg.appendChild(text(X(last) + 12, Y(s[0][last]) - 1, (s[0][last] * 100).toFixed(1) + '%', { fill: s[1], 'font-size': 15, 'font-weight': 700 }));
+    svg.appendChild(text(X(last) + 12, Y(s[0][last]) - 1, (s[0][last] * 100).toFixed(1) + '%', { fill: s[3], 'font-size': 15, 'font-weight': 700 }));
     svg.appendChild(text(X(last) + 12, Y(s[0][last]) + 15, s[2], { fill: 'var(--muted-ink)', 'font-size': 12, 'font-weight': 600 }));
   });
 
