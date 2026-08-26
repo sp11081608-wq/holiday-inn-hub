@@ -4,10 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Holiday Inn Revival — Project Hub</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #f8fafc; --bg-elevated: #ffffff; --fg: #0f172a; --fg-muted: #64748b; --fg-subtle: #94a3b8;
@@ -20,8 +16,8 @@
     --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.07), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
     --radius-sm: 6px; --radius: 10px; --radius-lg: 14px; --radius-xl: 18px;
     --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
-    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, monospace;
     --text-xs: 11px; --text-sm: 12.5px; --text-base: 14px; --text-lg: 16px; --text-xl: 20px; --text-2xl: 28px; --text-3xl: 36px;
     --leading-tight: 1.2; --leading-normal: 1.5; --leading-relaxed: 1.6;
     --transition-fast: 120ms ease; --transition: 180ms ease; --transition-slow: 240ms ease;
@@ -167,7 +163,7 @@
       <div><h1 class="header-title">🏨 Holiday Inn Revival — Project Hub</h1><p class="header-subtitle">100 Outlet Pkwy, Pooler GA 31322 · Owner's son managing hotel improvement initiative</p></div>
       <div class="header-meta"><span id="lastUpdated">Last updated: —</span><span>·</span><span>Data is private & confidential</span></div>
     </div>
-    <div class="chips"><span class="chip">Current Rank: #4 of 22</span><span class="chip">Score: 4.4 / 5.0</span><span class="chip">120 Reviews</span><span class="chip gold">🎯 Target: #1 in Pooler</span></div>
+    <div class="chips"><span class="chip">Current Rank: #4 of 22</span><span class="chip">Score: 4.4 / 5.0</span><span class="chip">120 Reviews</span><span class="chip">Occupancy gap: 8.6 pts</span><span class="chip gold">🎯 Upside: $195K–$362K / yr</span></div>
   </header>
   <nav class="tabs" role="tablist" aria-label="Project sections">
     <button class="tab active" role="tab" aria-selected="true" onclick="show('home')" aria-controls="home">🏠 Home</button>
@@ -181,8 +177,11 @@
   <main class="main" role="main">
     <section class="page active" id="home" role="tabpanel" aria-labelledby="home-tab">
       <div class="card" style="padding: var(--space-4) var(--space-5) var(--space-3);"><div class="card-title">Project Phase</div><div class="phases"><div class="phase done"><span class="phase-num">✓</span>Research</div><div class="phase done"><span class="phase-num">✓</span>First Visit</div><div class="phase active"><span class="phase-num">3</span>Blueprint</div><div class="phase"><span class="phase-num">4</span>Implement</div><div class="phase"><span class="phase-num">5</span>Paper</div></div></div>
-      <div class="now-card"><div class="now-label">▶ What to do right now</div><div class="now-title">Build the Strategic Blueprint</div><div class="now-sub">All research is done — competitor SWOTs, on-site audit, STR context, corporate account analysis, and outreach package. The next deliverable is a formal action plan with specific fixes, timelines, and estimated costs to present to your dad.</div><div class="now-actions"><button class="btn btn-primary" onclick="sendPrompt('Build my strategic blueprint based on everything we know — competitor observations, on-site findings, corporate account analysis, and the breakfast constraint. Include specific fixes, timelines, and costs.')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Build Blueprint</button><button class="btn btn-secondary" onclick="show('tasks')">See Tasks</button></div></div>
-      <div class="stat-grid"><div class="stat-box"><div class="stat-num">#4</div><div class="stat-label">TripAdvisor Rank</div><div class="stat-sub">of 22 in Pooler</div></div><div class="stat-box"><div class="stat-num" style="color: var(--warning);">0.4</div><div class="stat-label">Points Behind #1</div><div class="stat-sub">Drury 4.8 vs Our 4.4</div></div><div class="stat-box"><div class="stat-num">120</div><div class="stat-label">Total Reviews</div><div class="stat-sub">4.4★ Average</div></div><div class="stat-box"><div class="stat-num">5</div><div class="stat-label">Corporate Targets</div><div class="stat-sub">Outreach Ready</div></div></div>
+      <div class="now-card"><div class="now-label">▶ What to do right now</div><div class="now-title">Present the Blueprint to Ownership</div><div class="now-sub">Research, on-site audit, STR analysis, competitor SWOTs, and the 7-initiative blueprint are all complete. Lead with the diagnosis: <strong>ADR is above the comp set — the gap is occupancy, not price.</strong> Then the two fastest fixes (service recovery, bathroom condition), then the 30/60/90 plan and the ask.</div><div class="now-actions"><a class="btn btn-primary" href="presentation.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>Open the Deck</a><button class="btn btn-secondary" onclick="show('report')">Show the STR Proof</button><button class="btn btn-ghost" onclick="show('tasks')">See Tasks</button></div></div>
+      </div>
+      <div class="stat-grid"><div class="stat-box"><div class="stat-num" style="color: var(--danger);">71.8%</div><div class="stat-label">Our Occupancy</div><div class="stat-sub">Comp set 80.5% · MPI 89</div></div><div class="stat-box"><div class="stat-num" style="color: var(--success);">$148.63</div><div class="stat-label">Our ADR</div><div class="stat-sub">Above comp set · ARI 102</div></div><div class="stat-box"><div class="stat-num" style="color: var(--danger);">−16.5%</div><div class="stat-label">RevPAR Index YoY</div><div class="stat-sub">RGI 91 — losing share</div></div><div class="stat-box"><div class="stat-num">$26K</div><div class="stat-label">Monthly Gap</div><div class="stat-sub">To comp-set fair share</div></div></div>
+      <div class="stat-grid"><div class="stat-box"><div class="stat-num">#4</div><div class="stat-label">TripAdvisor Rank</div><div class="stat-sub">of 22 in Pooler</div></div><div class="stat-box"><div class="stat-num" style="color: var(--warning);">0.4</div><div class="stat-label">Points Behind #1</div><div class="stat-sub">Drury 4.8 vs Our 4.4</div></div><div class="stat-box"><div class="stat-num">7</div><div class="stat-label">Initiatives</div><div class="stat-sub">Owner + cost + KPI each</div></div><div class="stat-box"><div class="stat-num">5</div><div class="stat-label">Corporate Targets</div><div class="stat-sub">Verified — outreach ready</div></div></div>
+      </div>
       <div class="card"><div class="card-title">📌 Key Facts — 100 Outlet Pkwy, Pooler GA 31322</div><div class="ir"><div class="id d-g"></div><div class="ir-text">100's Grill food quality is genuinely good — better than most competitors, but not free</div></div><div class="ir"><div class="id d-g"></div><div class="ir-text">Outdoor fireplace is unique — no other competitor has one. Not being marketed at all right now.</div></div><div class="ir"><div class="id d-g"></div><div class="ir-text">Guest mix: port workers, defense attorneys, business travelers — repeat guests who notice every inconsistency</div></div><div class="ir"><div class="id d-o"></div><div class="ir-text">Breakfast cannot be made free — pivot to evening amenity, direct booking perk, or breakfast credit</div></div><div class="ir"><div class="id d-o"></div><div class="ir-text">Weed smell in some areas — identify specific rooms/floors and report to dad ASAP</div></div><div class="ir"><div class="id d-r"></div><div class="ir-text">Key card security incident reported — potential liability, needs immediate audit</div></div><div class="ir"><div class="id d-r"></div><div class="ir-text">Fairfield Marriott (new, 4.8★) accumulating reviews fast — window to retake #1 is closing</div></div></div>
     </section>
     <section class="page" id="files" role="tabpanel" aria-labelledby="files-tab">
@@ -251,5 +250,235 @@ My name is [SENDER] at the Holiday Inn & Suites Savannah Airport – Pooler by I
 
 [SENDER NAME] | [TITLE] | 100 Outlet Pkwy, Pooler GA 31322 | [PHONE]</div></div></div></section>
     <section class="page" id="report" role="tabpanel" aria-labelledby="report-tab">
-      <div class="card"><div class="card-title">📊 STR Performance — Occupancy vs. Comp Set</div><div style="height:300px;max-height:300px;"><canvas id="strChart" aria-label="Occupancy comparison chart: our hotel vs comp set over time"></canvas></div><p style="font-size:var(--text-xs);color:var(--fg-subtle);margin-top:var(--space-2);text-align:center;">Source: STR report — re-upload STR PDF to refresh data</p></div>
-      <div class="card"><div class="card-title">🏨 Corporate Account Summary</div><div class="alert-box"><strong>⚠ 35 Active Accounts</strong> · <span class="pill-g">16 Lapsed (~$7,800 recoverable)</span> · <span class="pill-o">Gap Inc: Top account to protect</span></div><table class="acct-table" role="table"><thead><tr><th>Account</th><th>Status</th><th>Annual Rev</th><th>Nights</th><th>Action</th></tr></thead><tbody><tr><td>Gap Inc</td><td><span class="pill-g">Active</span></td><td>$12,400</td><td>156</td><td>Protect — VIP treatment</td></tr><tr><td>Hyundai/Contractors</td><td><span class="pill-g">Active</span></td><td>$9,800</td><td>124</td><td>Expand — growing demand</td></tr><tr><td>Gulfstream</td><td><span class="pill-g">Active</span></td><td>$8,200</td><td>103</td><td>Formalize corporate rate</td></tr><tr><td>JCB</td><td><span class="pill-o">At Risk</span></td><td>$6,100</td><td>77</td
+      <div class="card" style="margin-bottom: var(--space-4);"><div class="card-title">📊 STR STAR Performance — Us vs. Comp Set (YTD, Apr 2026)</div>
+        <div style="overflow-x:auto;">
+        <svg viewBox="0 0 720 300" role="img" aria-label="Bar chart comparing our hotel to the competitive set. Occupancy 71.8 percent versus 80.5 percent. ADR 148.63 dollars versus 145.72 dollars. RevPAR 106.75 dollars versus 117.35 dollars." style="width:100%;min-width:520px;height:auto;display:block;">
+          <line x1="60" y1="20" x2="60" y2="230" stroke="var(--border-strong)" stroke-width="1"/>
+          <line x1="60" y1="230" x2="700" y2="230" stroke="var(--border-strong)" stroke-width="1"/>
+          <g font-family="var(--font-mono)" font-size="10" fill="var(--fg-subtle)" text-anchor="end">
+            <text x="52" y="234">0</text><text x="52" y="182">25%</text><text x="52" y="129">50%</text><text x="52" y="77">75%</text><text x="52" y="24">100%</text>
+          </g>
+          <g stroke="var(--border)" stroke-width="1" stroke-dasharray="3 3">
+            <line x1="60" y1="178" x2="700" y2="178"/><line x1="60" y1="125" x2="700" y2="125"/><line x1="60" y1="73" x2="700" y2="73"/><line x1="60" y1="20" x2="700" y2="20"/>
+          </g>
+          <!-- Occupancy: 71.82 vs 80.46 (scale 0-100) -->
+          <rect x="110" y="79" width="54" height="151" rx="4" fill="var(--accent)"/>
+          <rect x="172" y="61" width="54" height="169" rx="4" fill="var(--fg-subtle)"/>
+          <text x="137" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">71.8%</text>
+          <text x="199" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="var(--fg-muted)">80.5%</text>
+          <text x="168" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="var(--fg)">Occupancy</text>
+          <text x="168" y="266" text-anchor="middle" font-size="11" font-weight="600" fill="var(--danger)">MPI 89 — losing share</text>
+          <!-- ADR: 148.63 vs 145.72 (scale 0-200) -->
+          <rect x="320" y="74" width="54" height="156" rx="4" fill="var(--accent)"/>
+          <rect x="382" y="77" width="54" height="153" rx="4" fill="var(--fg-subtle)"/>
+          <text x="347" y="67" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">$148.63</text>
+          <text x="409" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="var(--fg-muted)">$145.72</text>
+          <text x="378" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="var(--fg)">ADR</text>
+          <text x="378" y="266" text-anchor="middle" font-size="11" font-weight="600" fill="var(--success)">ARI 102 — we win on rate</text>
+          <!-- RevPAR: 106.75 vs 117.35 (scale 0-200) -->
+          <rect x="530" y="118" width="54" height="112" rx="4" fill="var(--accent)"/>
+          <rect x="592" y="107" width="54" height="123" rx="4" fill="var(--fg-subtle)"/>
+          <text x="557" y="111" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">$106.75</text>
+          <text x="619" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="var(--fg-muted)">$117.35</text>
+          <text x="588" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="var(--fg)">RevPAR</text>
+          <text x="588" y="266" text-anchor="middle" font-size="11" font-weight="600" fill="var(--danger)">RGI 91 — −16.5% YoY</text>
+          <g transform="translate(60,286)" font-size="11" font-weight="600">
+            <rect x="0" y="-9" width="12" height="12" rx="3" fill="var(--accent)"/><text x="18" y="1" fill="var(--fg-muted)">Holiday Inn Pooler</text>
+            <rect x="150" y="-9" width="12" height="12" rx="3" fill="var(--fg-subtle)"/><text x="168" y="1" fill="var(--fg-muted)">Comp set</text>
+          </g>
+        </svg>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--fg-subtle);margin-top:var(--space-2);text-align:center;">Source: STR STAR report, YTD April 2026. ADR bars scaled 0–$200; occupancy scaled 0–100%. Comp-set ADR derived from ARI 102.</p>
+        <div class="alert-box" style="margin-top:var(--space-4);"><strong>⚠ The one-sentence diagnosis:</strong> our rate is <em>above</em> the comp set — we are losing on <strong>occupancy</strong>, not price. Do not cut rates.</div>
+      </div>
+      <div class="card"><div class="card-title">🏨 Corporate Account Summary</div><div class="alert-box"><strong>⚠ 35 Active Accounts</strong> · <span class="pill-g">16 Lapsed (~$7,800 recoverable)</span> · <span class="pill-o">Gap Inc: Top account to protect</span></div><table class="acct-table" role="table"><thead><tr><th>Account</th><th>Status</th><th>Annual Rev</th><th>Nights</th><th>Action</th></tr></thead><tbody>
+      <tr><td>Gap Inc</td><td><span class="pill-g">Active</span></td><td>$12,400</td><td>156</td><td>Protect — VIP treatment</td></tr>
+      <tr><td>Hyundai/Contractors</td><td><span class="pill-g">Active</span></td><td>$9,800</td><td>124</td><td>Expand — growing demand</td></tr>
+      <tr><td>Gulfstream</td><td><span class="pill-g">Active</span></td><td>$8,200</td><td>103</td><td>Formalize corporate rate</td></tr>
+      <tr><td>JCB</td><td><span class="pill-o">At Risk</span></td><td>$6,100</td><td>77</td><td>In-person drop-in — HQ is 5 min away</td></tr>
+      <tr><td>16 lapsed accounts</td><td><span class="pill-o">Lapsed</span></td><td>~$7,800</td><td>—</td><td>Win-back emails drafted &amp; ready</td></tr>
+      </tbody></table></div>
+      <div class="card" style="margin-top:var(--space-4);"><div class="card-title">🎯 The 7 Initiatives — Strategic Blueprint Portfolio</div>
+        <div class="ir"><div class="id d-r"></div><div class="ir-text"><strong>2. Service recovery &amp; review response</strong> — the #1 broken link. Problem Handling score <strong>40.74</strong>. Fastest, cheapest fix.</div></div>
+        <div class="ir"><div class="id d-r"></div><div class="ir-text"><strong>4. Cleanliness &amp; bathroom condition</strong> — worst-scoring area (Shower/Bath <strong>65.98</strong>). Small targeted capex.</div></div>
+        <div class="ir"><div class="id d-o"></div><div class="ir-text"><strong>1. Breakfast quality &amp; value promotion</strong> — stays paid (~$15) per owner; fix the <em>value perception</em>, not the price.</div></div>
+        <div class="ir"><div class="id d-o"></div><div class="ir-text"><strong>3. Arrival &amp; check-in excellence</strong> — scripted greeting, first impression is the review driver.</div></div>
+        <div class="ir"><div class="id d-b"></div><div class="ir-text"><strong>5. Loyalty member recognition</strong> — IHG One Rewards guests notice when they are not acknowledged.</div></div>
+        <div class="ir"><div class="id d-b"></div><div class="ir-text"><strong>6. Extended-stay mid-stay refresh</strong> — we score worst on 3–4 night stays; port &amp; construction crews live here.</div></div>
+        <div class="ir"><div class="id d-b"></div><div class="ir-text"><strong>7. OTA expectation management</strong> — listing photos and copy must match the real product.</div></div>
+        <p style="font-size:var(--text-sm);color:var(--fg-muted);margin-top:var(--space-4);">Each initiative has a named owner, cost, timeline, and KPI target in <strong>Holiday_Inn_Strategic_Blueprint.docx</strong>. RACI in <strong>30_60_90_RACI_Matrix.docx</strong> — GM accountable for all.</p>
+      </div>
+    </section>
+    <section class="page" id="how" role="tabpanel" aria-labelledby="how-tab">
+      <div class="card"><div class="card-title">⚙️ How to Use This Hub</div>
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Home — the story in 30 seconds</div><div class="step-sub">Phase tracker, headline numbers, and the key facts. This is the tab to have on screen when someone walks up.</div></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Report — the proof</div><div class="step-sub">STR chart and corporate account table. Open this the moment anyone asks "how do you know?"</div></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Intel — the competitors</div><div class="step-sub">On-site walkthroughs of six hotels. Drury is #1; Fairfield is the rising threat.</div></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Outreach — ready to send</div><div class="step-sub">Five verified corporate contacts with drafted emails. Click <strong>Copy</strong> to grab an address. These are handed to the sales team — an intern does not negotiate rates.</div></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Tasks — click any row to check it off</div><div class="step-sub">Progress is saved in this browser, so it survives a refresh on the same machine.</div></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-body"><div class="step-title">Print / PDF</div><div class="step-sub">Press <strong>Ctrl+P</strong> (or Cmd+P). The print stylesheet drops the navigation and prints every tab as a clean document.</div></div></div>
+        <div class="alert-box"><strong>Works offline.</strong> This file has no external dependencies — every chart, style, and script is self-contained. It will render with no Wi-Fi.</div>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+(function () {
+  "use strict";
+  var STORE = "hi-hub-tasks-v1";
+
+  function toast(msg) {
+    var t = document.getElementById("toast");
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function () { t.classList.remove("show"); }, 2200);
+  }
+
+  function show(id) {
+    var pages = document.querySelectorAll(".page");
+    for (var i = 0; i < pages.length; i++) pages[i].classList.remove("active");
+    var page = document.getElementById(id);
+    if (page) page.classList.add("active");
+    var tabs = document.querySelectorAll(".tab");
+    for (var j = 0; j < tabs.length; j++) {
+      var isActive = tabs[j].getAttribute("aria-controls") === id;
+      tabs[j].classList.toggle("active", isActive);
+      tabs[j].setAttribute("aria-selected", isActive ? "true" : "false");
+    }
+    if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function toggle(name) {
+    var block = document.getElementById("block-" + name);
+    if (!block) return;
+    var body = block.querySelector(".co-body");
+    var chev = block.querySelector(".chev");
+    var open = body.style.display === "block";
+    body.style.display = open ? "none" : "block";
+    if (chev) chev.textContent = open ? "▼" : "▲";
+    block.classList.toggle("open", !open);
+  }
+
+  function copyEmail(addr, btn) {
+    var done = function () {
+      toast("Copied " + addr);
+      if (btn) {
+        var old = btn.textContent;
+        btn.textContent = "Copied ✓";
+        setTimeout(function () { btn.textContent = old; }, 1600);
+      }
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(addr).then(done, function () { fallbackCopy(addr, done); });
+    } else {
+      fallbackCopy(addr, done);
+    }
+  }
+
+  function fallbackCopy(text, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); done(); } catch (e) { toast("Copy failed — select the address manually"); }
+    document.body.removeChild(ta);
+  }
+
+  function taskKey(row) {
+    var label = row.querySelector(".tl");
+    return label ? label.textContent.trim() : null;
+  }
+
+  function loadTasks() {
+    try { return JSON.parse(localStorage.getItem(STORE)) || {}; } catch (e) { return {}; }
+  }
+
+  function saveTasks(state) {
+    try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) { /* private mode: session-only */ }
+  }
+
+  function paintTask(row, done) {
+    var cb = row.querySelector(".tcb");
+    var label = row.querySelector(".tl");
+    if (!cb || !label) return;
+    cb.classList.toggle("done-cb", done);
+    cb.classList.toggle("open-cb", !done);
+    cb.textContent = done ? "✓" : "";
+    label.classList.toggle("done", done);
+    row.setAttribute("aria-pressed", done ? "true" : "false");
+  }
+
+  function toggleTask(row) {
+    var key = taskKey(row);
+    var done = !row.querySelector(".tl").classList.contains("done");
+    paintTask(row, done);
+    if (key) {
+      var state = loadTasks();
+      state[key] = done;
+      saveTasks(state);
+    }
+    toast(done ? "Done ✓" : "Reopened");
+  }
+
+  function openFile(name) {
+    toast("Ask Claude: “open " + name + "”");
+  }
+
+  function sendPrompt(text) {
+    copyEmail(text, null);
+    toast("Prompt copied — paste it into Claude");
+  }
+
+  // Expose the handlers the inline onclick attributes call.
+  window.show = show;
+  window.toggle = toggle;
+  window.copyEmail = copyEmail;
+  window.toggleTask = toggleTask;
+  window.openFile = openFile;
+  window.sendPrompt = sendPrompt;
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var stamp = document.getElementById("lastUpdated");
+    if (stamp) {
+      stamp.textContent = "Last updated: " + new Date().toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+    }
+
+    // Restore saved task state.
+    var state = loadTasks();
+    var rows = document.querySelectorAll(".task-row");
+    for (var i = 0; i < rows.length; i++) {
+      var key = taskKey(rows[i]);
+      rows[i].setAttribute("role", "button");
+      rows[i].setAttribute("tabindex", "0");
+      if (key && Object.prototype.hasOwnProperty.call(state, key)) paintTask(rows[i], state[key]);
+      else paintTask(rows[i], rows[i].querySelector(".tl").classList.contains("done"));
+    }
+
+    // Keyboard support for rows and file links driven by onclick.
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      var el = document.activeElement;
+      if (el && (el.classList.contains("task-row") || el.classList.contains("file-row"))) {
+        e.preventDefault();
+        el.click();
+      }
+    });
+
+    // Open the first outreach block by default.
+    var first = document.getElementById("block-hyundai");
+    if (first) {
+      var body = first.querySelector(".co-body");
+      if (body) body.style.display = "block";
+      var chev = first.querySelector(".chev");
+      if (chev) chev.textContent = "▲";
+    }
+  });
+})();
+</script>
+</body>
+</html>
