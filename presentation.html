@@ -144,6 +144,18 @@
     .figures, .figures.two, .cards.g2, .cards.g3, .cols, .phases { grid-template-columns: 1fr; }
     h2 { max-width: none; }
   }
+  /* Meeting-room projectors are often 1366x768 or 1024x768. Tighten the
+     vertical rhythm on short screens so the densest slides still fit. */
+  @media (max-height: 820px) {
+    .slide { padding-top: clamp(22px, 3vw, 46px); padding-bottom: clamp(56px, 7vh, 72px); }
+    h2 { margin-bottom: clamp(12px, 2vh, 24px); }
+    ul.points li { padding-top: clamp(6px, 1vh, 11px); padding-bottom: clamp(6px, 1vh, 11px); }
+    .callout { margin-top: clamp(11px, 1.8vh, 20px); padding: clamp(10px, 1.6vh, 18px) clamp(14px, 1.8vw, 24px); }
+    .cards { margin-top: clamp(9px, 1.4vh, 14px); gap: clamp(8px, 1.2vh, 13px); }
+    .figures { margin-top: clamp(14px, 2.2vh, 28px); }
+    .source { margin-top: clamp(10px, 1.6vh, 18px); }
+    .eyebrow { margin-bottom: clamp(10px, 1.6vh, 18px); }
+  }
   @media (prefers-reduced-motion: reduce) { .slide { animation: none; } }
 
   @media print {
@@ -201,15 +213,13 @@
   <section class="slide" data-notes="Walk the chart left to right. ADR bars are nearly level — we win slightly. Occupancy and RevPAR bars are where the money leaks. If someone asks about the comp set composition, it is the Pooler airport cluster: Drury, Courtyard, Hampton, Fairfield, Holiday Inn Express, Hyatt Place.">
     <div class="eyebrow">The proof</div>
     <h2 class="wide">Us versus the comp set.</h2>
-    <svg class="chart" viewBox="0 0 900 340" role="img" aria-label="Bar chart comparing Holiday Inn Pooler with the competitive set. Occupancy 71.8 percent versus 80.5 percent. ADR 148.63 dollars versus 145.72 dollars. RevPAR 106.75 dollars versus 117.35 dollars.">
-      <line x1="70" y1="24" x2="70" y2="252" stroke="#33455f" stroke-width="1.5"/>
-      <line x1="70" y1="252" x2="870" y2="252" stroke="#33455f" stroke-width="1.5"/>
-      <g stroke="#223049" stroke-width="1" stroke-dasharray="4 5">
-        <line x1="70" y1="195" x2="870" y2="195"/><line x1="70" y1="138" x2="870" y2="138"/><line x1="70" y1="81" x2="870" y2="81"/><line x1="70" y1="24" x2="870" y2="24"/>
-      </g>
-      <g font-family="ui-monospace, monospace" font-size="12" fill="#6b7f9c" text-anchor="end">
-        <text x="60" y="256">0</text><text x="60" y="199">25</text><text x="60" y="142">50</text><text x="60" y="85">75</text><text x="60" y="28">100</text>
-      </g>
+    <svg class="chart" viewBox="0 0 900 388" role="img" aria-label="Bar chart comparing Holiday Inn Pooler with the competitive set. Occupancy 71.8 percent versus 80.5 percent. ADR 148.63 dollars versus 145.72 dollars. RevPAR 106.75 dollars versus 117.35 dollars.">
+      <!-- No shared y-axis on purpose: occupancy is a percentage, ADR and RevPAR
+           are dollars. Each pair is drawn from zero on its own scale, so heights
+           are honest within a pair and never invite a cross-metric comparison. -->
+      <line x1="120" y1="252" x2="272" y2="252" stroke="#33455f" stroke-width="2"/>
+      <line x1="390" y1="252" x2="542" y2="252" stroke="#33455f" stroke-width="2"/>
+      <line x1="660" y1="252" x2="812" y2="252" stroke="#33455f" stroke-width="2"/>
 
       <!-- Occupancy 71.8 / 80.5 on 0-100 scale -->
       <rect x="130" y="88" width="62" height="164" rx="5" fill="#4cc2a0" opacity="0.9"/>
@@ -218,6 +228,7 @@
       <text x="231" y="58" text-anchor="middle" font-size="17" font-weight="700" fill="#9fb0c8">80.5%</text>
       <text x="196" y="280" text-anchor="middle" font-size="15" font-weight="700" fill="#f1f5f9">Occupancy</text>
       <text x="196" y="301" text-anchor="middle" font-size="13" font-weight="600" fill="#f4736b">index 89 — we lose here</text>
+      <text x="196" y="322" text-anchor="middle" font-size="11" fill="#6b7f9c">scale 0–100%</text>
 
       <!-- ADR 148.63 / 145.72 on 0-200 scale -->
       <rect x="400" y="82" width="62" height="170" rx="5" fill="#4cc2a0" opacity="0.9"/>
@@ -226,6 +237,7 @@
       <text x="501" y="76" text-anchor="middle" font-size="17" font-weight="700" fill="#9fb0c8">$145.72</text>
       <text x="466" y="280" text-anchor="middle" font-size="15" font-weight="700" fill="#f1f5f9">ADR</text>
       <text x="466" y="301" text-anchor="middle" font-size="13" font-weight="600" fill="#4cc2a0">index 102 — we win here</text>
+      <text x="466" y="322" text-anchor="middle" font-size="11" fill="#6b7f9c">scale $0–$200</text>
 
       <!-- RevPAR 106.75 / 117.35 on 0-200 scale -->
       <rect x="670" y="130" width="62" height="122" rx="5" fill="#4cc2a0" opacity="0.9"/>
@@ -234,13 +246,14 @@
       <text x="771" y="108" text-anchor="middle" font-size="17" font-weight="700" fill="#9fb0c8">$117.35</text>
       <text x="736" y="280" text-anchor="middle" font-size="15" font-weight="700" fill="#f1f5f9">RevPAR</text>
       <text x="736" y="301" text-anchor="middle" font-size="13" font-weight="600" fill="#f4736b">index 91 — down 16.5% YoY</text>
+      <text x="736" y="322" text-anchor="middle" font-size="11" fill="#6b7f9c">scale $0–$200</text>
 
-      <g transform="translate(70,326)" font-size="13" font-weight="600" font-family="-apple-system, sans-serif">
+      <g transform="translate(120,374)" font-size="13" font-weight="600" font-family="-apple-system, sans-serif">
         <rect x="0" y="-10" width="13" height="13" rx="3" fill="#4cc2a0"/><text x="21" y="1" fill="#9fb0c8">Holiday Inn Pooler</text>
         <rect x="190" y="-10" width="13" height="13" rx="3" fill="#3d5170"/><text x="211" y="1" fill="#9fb0c8">Comp set</text>
       </g>
     </svg>
-    <div class="source">STR STAR YTD April 2026. Occupancy scaled 0–100%; ADR and RevPAR scaled 0–$200. Comp-set ADR derived from rate index 102.</div>
+    <div class="source">STR STAR YTD April 2026. Occupancy scaled 0–100%; ADR and RevPAR scaled 0–$200. Comp-set ADR derived from rate index 102. Each metric is drawn from zero on its own scale — bar heights compare only within a pair.</div>
   </section>
 
   <!-- 4 -->
@@ -466,8 +479,20 @@
     go(e.clientX > window.innerWidth / 2 ? i + 1 : i - 1);
   });
 
-  var m = /^#s(\d+)$/.exec(location.hash || "");
-  if (m) i = Math.min(slides.length - 1, Math.max(0, parseInt(m[1], 10) - 1));
+  function fromHash() {
+    var m = /^#s(\d+)$/.exec(location.hash || "");
+    return m ? Math.min(slides.length - 1, Math.max(0, parseInt(m[1], 10) - 1)) : null;
+  }
+
+  // Keeps the deck in step with the address bar, so browser Back/Forward and
+  // a pasted #s7 link both land on the right slide instead of silently desyncing.
+  window.addEventListener("hashchange", function () {
+    var n = fromHash();
+    if (n !== null && n !== i) { i = n; render(); }
+  });
+
+  var start = fromHash();
+  if (start !== null) i = start;
   render();
 })();
 </script>
